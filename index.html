@@ -193,7 +193,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div>
 </div>
 <!-- SECCIÓN DE GRÁFICAS -->
-<div class="charts-container">
+<div class="charts-container" style="contain: layout;">
 <h5><i class="fas fa-chart-line me-2"></i>Monitoreo en Tiempo Real</h5>
 <div class="row g-4">
 <div class="col-lg-6">
@@ -414,7 +414,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div>
 </div> <!-- Fin pestaña Diagnóstico -->
 <!-- ================= PESTAÑA 2: ENFERMEDADES ================= -->
-<div class="tab-pane fade" id="enfermedades" role="tabpanel" aria-labelledby="enfermedades-tab" data-lazy="true">
+<div class="tab-pane fade" id="enfermedades" role="tabpanel" aria-labelledby="enfermedades-tab" data-lazy="true" style="will-change: contents;">
 <div class="container my-4">
 <h3 class="text-center mb-5 text-danger"><i class="fas fa-virus me-2"></i>Enfermedades Comunes en Tomate Hidropónico</h3>
 <div class="accordion" id="accordionEnfermedades" style="will-change: contents; contain: layout;">
@@ -576,7 +576,7 @@ La mayoría de enfermedades fúngicas se propagan por agua contaminada.
 </div>
 </div>
 <!-- ================= PESTAÑA 3: PLAGAS ================= -->
-<div class="tab-pane fade" id="plagas" role="tabpanel" aria-labelledby="plagas-tab" data-lazy="true">
+<div class="tab-pane fade" id="plagas" role="tabpanel" aria-labelledby="plagas-tab" data-lazy="true" style="will-change: contents;">
 <div class="container my-4">
 <h3 class="text-center mb-5 text-success"><i class="fas fa-bug me-2"></i>Plagas en Cultivo de Tomate</h3>
 <div class="row g-4" style="will-change: contents; contain: layout;">
@@ -724,7 +724,7 @@ La mayoría de enfermedades fúngicas se propagan por agua contaminada.
 </div>
 </div>
 <!-- ================= PESTAÑA 4: PREVENCIÓN ================= -->
-<div class="tab-pane fade" id="prevencion" role="tabpanel" aria-labelledby="prevencion-tab" data-lazy="true">
+<div class="tab-pane fade" id="prevencion" role="tabpanel" aria-labelledby="prevencion-tab" data-lazy="true" style="will-change: contents;">
 <div class="container my-4">
 <h3 class="text-center mb-5" style="color: var(--primary-color);"><i class="fas fa-shield-alt me-2"></i>Estrategias de Prevención y Guía de Cultivo</h3>
 <!-- NUEVA SECCIÓN: ETAPAS DEL TOMATE -->
@@ -1367,24 +1367,22 @@ document.addEventListener("DOMContentLoaded", function() {
         ppmInput.style.backgroundColor = '#ffffff';
     }
     
-    // ===== LAZY LOADING PARA PESTAÑAS PESADAS =====
-    // Implementar carga bajo demanda para Enfermedades, Plagas y Prevención
-    const lazyTabs = ['enfermedades', 'plagas', 'prevencion'];
-    
-    lazyTabs.forEach(tabId => {
-        const tabElement = document.getElementById(`${tabId}-tab`);
-        if (tabElement) {
-            tabElement.addEventListener('show.bs.tab', function(e) {
-                const tabPane = document.getElementById(tabId);
-                if (tabPane && !tabPane.dataset.loaded) {
-                    // Marcar como cargado para evitar recargas innecesarias
-                    tabPane.dataset.loaded = 'true';
-                    // El contenido ya existe en el DOM, solo marcamos que está listo
-                    console.log(`✓ Pestaña ${tabId} cargada bajo demanda`);
-                }
-            });
-        }
-    });
+    // ===== OPTIMIZACIÓN DE PESTAÑAS: Demorar renderizado =====
+    // Esto mejora significativamente el tiempo de carga inicial
+    setTimeout(() => {
+        // Las pestañas pesadas se renderizarán después de que todo esté listo
+        const lazyTabs = ['enfermedades', 'plagas', 'prevencion'];
+        lazyTabs.forEach(tabId => {
+            const tabElement = document.getElementById(`${tabId}-tab`);
+            if (tabElement) {
+                tabElement.addEventListener('show.bs.tab', function(e) {
+                    // Marcar como visitada para lazy loading posterior
+                    this.dataset.visited = 'true';
+                    console.log(`✓ Pestaña ${tabId} activada`);
+                }, { once: false });
+            }
+        });
+    }, 2000); // Esperar 2 segundos después de la carga inicial
 });
 
 // ===== CONFIGURACIÓN DE GRÁFICAS =====
@@ -1639,8 +1637,21 @@ function updateCharts(sensorData) {
     }
 }
 // Inicializar gráficas cuando el documento esté listo
+// Demorar ligeramente para mejorar rendimiento inicial
 document.addEventListener('DOMContentLoaded', () => {
-    initCharts();
+    // Mostrar spinner mientras se cargan las gráficas
+    const chartElements = document.querySelectorAll('[id*="Chart"]');
+    chartElements.forEach(el => {
+        el.parentElement.style.opacity = '0.7';
+    });
+    
+    // Inicializar gráficas después de un pequeño delay (permite que todo esté renderizado)
+    setTimeout(() => {
+        initCharts();
+        chartElements.forEach(el => {
+            el.parentElement.style.opacity = '1';
+        });
+    }, 500);
 });
 // ===== CONFIGURACIÓN DE REPORTE =====
 let modalReporte;
