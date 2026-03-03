@@ -5,7 +5,7 @@
   "start_url": "/sistema-hidroponico/",
   "scope": "/sistema-hidroponico/",
   "display": "standalone",
-  "orientation": "portrait-landscape",
+  "orientation": "any",
   "theme_color": "#dc2626",
   "background_color": "#ffffff",
   "icons": [
