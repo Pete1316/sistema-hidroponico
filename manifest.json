@@ -1,5 +1,5 @@
 {
-  "name": "Sistema de Monitoreo Hidropónico",
+  "name": "Hidro",
   "short_name": "Hidro",
   "description": "Aplicación PWA para monitoreo en tiempo real de cultivos hidropónicos de tomate con análisis automático de nutrientes y pH",
   "start_url": "/sistema-hidroponico/",
