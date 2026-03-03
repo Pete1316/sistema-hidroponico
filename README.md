@@ -1,273 +1,230 @@
-# 🚀 AUTOMATIZACIÓN DE NUTRIENTES - SISTEMA IMPLEMENTADO
+# Sistema de Monitoreo Hidropónico PWA 🌱
 
-## ¡BIENVENIDO! 🎉
+Una aplicación web progresiva (PWA) para monitoreo en tiempo real de cultivos hidropónicos de tomate, con análisis automático de nutrientes, pH y variables ambientales.
 
-Tu sistema hidropónico ahora tiene **automatización inteligente** de nutrientes.
+## 📁 Estructura del Proyecto
 
-Cuando los sensores detecten que los nutrientes (ppm) están fuera de rango, el sistema calculará automáticamente:
-- ✅ **Cuánto nutriente agregar** (si está bajo)
-- ✅ **Cuánta agua cambiar** (si está alto)
-- ✅ **Instrucciones paso a paso** (para ejecutar)
-
----
-
-## ⚡ USA ESTO AHORA (30 segundos)
-
-1. **Abre:** La interfaz web (`practica4.html`)
-2. **Ve a:** Pestaña `"Diagnóstico del Cultivo"`
-3. **Completa:**
-   - Días de cultivo
-   - Etapa (Semilla/Vegetativa/Floración/Producción)
-   - Volumen del tanque
-4. **Clic:** Botón `⚙️ Automatizar Nutrientes` (rojo)
-5. **Lee:** La recomendación automática
-6. **Ejecuta:** Los pasos
-
-**¡Listo!** El sistema hizo todos los cálculos por ti.
-
----
-
-## 📚 DOCUMENTACIÓN (elige tu camino)
-
-### 🏃 **Apurado** (5 minutos)
-→ Lee: **[GUIA_RAPIDA.md](GUIA_RAPIDA.md)**
-
-### 📖 **Quiero entender** (20 minutos)
-→ Lee: **[AUTOMATIZACION_NUTRIENTES.md](AUTOMATIZACION_NUTRIENTES.md)**
-
-### 🔧 **Técnico** (30 minutos)
-→ Lee: **[RESUMEN_CAMBIOS.md](RESUMEN_CAMBIOS.md)** + **[config_automatizacion.json](config_automatizacion.json)**
-
-### 🍅 **Ejemplos reales** (15 minutos)
-→ Lee: **[EJEMPLOS_TOMATE.md](EJEMPLOS_TOMATE.md)**
-
-### ✔️ **Antes de usar** (10 minutos)
-→ Lee: **[CHECKLIST_VERIFICACION.md](CHECKLIST_VERIFICACION.md)**
-
-### 📋 **Ver todo** (índice completo)
-→ Lee: **[INDICE.md](INDICE.md)**
-
----
-
-## 🎯 ¿CÓMO FUNCIONA EN 3 PUNTOS?
-
-### 🔴 Si el sensor marca **PPM bajo**
 ```
-Ejemplo: 350 ppm (necesitas 400-800)
-
-El sistema calcula:
-  ✓ Cuántos gramos de CADA nutriente agregar
-  ✓ En qué orden (N→P→K→Ca→Mg→S)
-  ✓ Cuánto esperar entre cada uno
-  ✓ Cuál será el resultado esperado
-```
-
-### 🔴 Si el sensor marca **PPM alto**
-```
-Ejemplo: 1200 ppm (necesitas 400-800)
-
-El sistema calcula:
-  ✓ Cuántos litros de agua drenar
-  ✓ Qué porcentaje del tanque es
-  ✓ Cómo hacerlo sin estresarlas plantas
-  ✓ Cuál será el resultado esperado
-```
-
-### 🟢 Si el sensor marca **PPM ideal**
-```
-Ejemplo: 600 ppm (necesitas 400-800)
-
-El sistema dice:
-  ✓ ¡Todo está perfecto!
-  ✓ Sin acción requerida
-  ✓ Continúa en 2-4 horas
+.
+├── index.html              # Aplicación principal PWA
+├── manifest.json          # Configuración del instalable
+├── sw.js                  # Service Worker (offline & caché)
+├── .gitignore            # Archivos ignorados por git
+│
+├── src/                   # Recursos estáticos
+│   ├── estilo.css        # Estilos principales
+│   └── script.js         # JavaScript original
+│
+├── config/               # Configuración
+│   └── config.json       # Parámetros de automatización
+│
+├── docs/                 # Documentación técnica
+│   ├── README.md
+│   ├── PWA_README.md
+│   ├── GITHUB_SETUP.md
+│   ├── AUTOMATIZACION_NUTRIENTES.md
+│   └── ... otros documentos
+│
+└── .git/                 # Control de versiones
 ```
 
 ---
 
-## 🎯 BOTÓN NUEVO EN LA INTERFAZ
+## 🚀 Características Principales
 
-Encontrarás este botón en la pestaña **"Diagnóstico del Cultivo"**:
+### ✅ Funcionalidades Implementadas
 
-```
-┌──────────────────────────────────────────────────────┐
-│ Calcular Todo │ ⚙️ Automatizar Nutrientes │ PDF      │
-└──────────────────────────────────────────────────────┘
-                      ↑ ESTE (nuevo - color rojo)
+- **📊 Dashboard en Tiempo Real**
+  - Sensor de temperatura (agua y ambiente)
+  - pH y EC (Conductividad Eléctrica)
+  - TDS (Sólidos Disueltos Totales)
+  - Humedad relativa
+  - Nivel de agua del tanque
+
+- **📈 Visualización Gráfica**
+  - Gráficas 4 en 1 actualizadas en tiempo real
+  - Chart.js 4.4.0 para renderizado
+  - Máximo 20 puntos de datos para performance
+
+- **🧪 Automatización de Nutrientes**
+  - Cálculo automático de PPM según etapa
+  - Dosis de macroelementos (N, P, K, Ca, Mg, S)
+  - Dosis de microelementos (Fe, Mn, Zn, Cu, B, Mo)
+  - Recomendaciones de ajuste automático
+
+- **⚗️ Automatización de pH** (NUEVO)
+  - Análisis automático de correcciones pH
+  - Recomendaciones basadas en valores actuales
+  - Generación de reportes personalizados
+
+- **📄 Generación de PDF**
+  - Reportes técnicos completos
+  - Dosis de nutrientes personalizadas
+  - Datos de automatización incluidos
+
+- **📲 Progressive Web App (PWA)**
+  - Instalable en móviles y escritorio
+  - Funciona offline con Service Worker
+  - Caché inteligente de recursos
+
+- **📚 Modo Docente**
+  - Información técnica detallada
+  - Explicaciones de cada sensor
+  - Toggle para mostrar/ocultar
+
+---
+
+## 🔧 Instalación y Uso
+
+### Opción 1: Navegador Web
+1. Acceder a [tu-url-github-pages.io](https://tu-url-github-pages.io)
+2. Usar desde cualquier navegador
+
+### Opción 2: Instalar como Aplicación
+- **Escritorio**: Click en el botón "Instalar" (Chrome/Edge)
+- **Móvil**: Añadir a pantalla de inicio (Chrome/Safari)
+
+### Opción 3: Desarrollador Local
+```bash
+# Clonar repositorio
+git clone https://github.com/TU_USUARIO/sistema-hidroponico.git
+cd sistema-hidroponico
+
+# Instalar servidor local (Python)
+python -m http.server 8000
+
+# Acceder a http://localhost:8000
 ```
 
 ---
 
-## 📊 CARACTERÍSTICAS PRINCIPALES
+## 📊 Etapas de Desarrollo del Tomate
 
-✅ **Automático**
-- Lee el PPM actual del sensor en tiempo real
-- Compara con el rango ideal
-- Calcula automáticamente
+### 🌱 Semilla/Plántula (0-20 días)
+- **TDS**: 0-400 ppm
+- **pH**: 5.5-6.5
+- **EC**: 0.5-1.5 mS/cm
 
-✅ **Preciso**
-- Fórmulas matemáticas correctas
-- Basado en mejores prácticas hidropónicas
-- Calibrado para tomate
+### 🌿 Vegetativa (21-40 días)
+- **TDS**: 400-800 ppm
+- **pH**: 5.5-6.5
+- **EC**: 1.2-2.2 mS/cm
 
-✅ **Seguro**
-- Límites de seguridad incorporados
-- No permite cambios muy bruscos
-- Sugiere dividir si es necesario
-- Recomendaciones conservadoras
+### 🌸 Floración (41-70 días)
+- **TDS**: 800-1100 ppm
+- **pH**: 5.8-6.5
+- **EC**: 2.0-2.8 mS/cm
 
-✅ **Rápido**
-- Una sola línea de cálculos
-- Resultados instantáneos
-- Interfaz clara y visual
-
-✅ **Completo**
-- Macro y micronutrientes
-- Instrucciones paso a paso
-- Advertencias importantes
-- Opción para copiar recomendaciones
+### 🍅 Producción (71-120 días)
+- **TDS**: 1000-1200 ppm
+- **pH**: 5.8-6.5
+- **EC**: 2.5-3.0 mS/cm
 
 ---
 
-## 🔧 ARCHIVOS PRINCIPALES
+## 🔐 Configuración de Firebase
 
-| Archivo | Descripción |
-|---------|-------------|
-| `practica4.html` | **Interfaz modificada** - Contiene la nueva función |
-| `GUIA_RAPIDA.md` | Empezar en 5 minutos |
-| `AUTOMATIZACION_NUTRIENTES.md` | Guía detallada completa |
-| `EJEMPLOS_TOMATE.md` | Escenarios reales de uso |
-| `CHECKLIST_VERIFICACION.md` | Antes de confiar en el sistema |
-| `config_automatizacion.json` | Configuración técnica |
-| `INDICE.md` | Mapa de navegación de documentos |
-| `RESUMEN_CAMBIOS.md` | Qué se modificó y cómo |
+El proyecto utiliza **Firebase Realtime Database** para sincronizar datos de sensores en tiempo real.
 
----
-
-## 📈 EJEMPLO REAL
-
-```
-Tengo un cultivo en VEGETATIVA con 25 días
-Mis sensores marcan 350 ppm
-Necesito 400-800 ppm para esta etapa
-
-ACCIÓN:
-1. Abro "Diagnóstico del Cultivo"
-2. Ingreso: Días=25, Etapa=Vegetativa, Volumen=100L
-3. Hago clic en "⚙️ Automatizar Nutrientes"
-
-RESULTADO EN POPUP:
-┌─────────────────────────────────────┐
-│ 🔴 NUTRIENTES BAJOS                 │
-│                                     │
-│ Agregar a 100 L:                    │
-│  • Nitrógeno: 1.25 g                │
-│  • Fósforo: 0.33 g                  │
-│  • Potasio: 0.83 g                  │
-│  • (y otros...)                     │
-│                                     │
-│ PASOS:                              │
-│ 1. Disolver N en agua               │
-│ 2. Verter al tanque                 │
-│ 3. Esperar 10 minutos               │
-│ 4. Repetir con P, K, Ca, Mg, S      │
-│ 5. Medir PPM (deberá estar ~400)   │
-└─────────────────────────────────────┘
-
-EJECUCIÓN:
-→ 5 minutos de trabajo
-→ PPM sube a 400-450 ppm ✓
-→ Plantas felices
+```javascript
+// Rutas esperadas en Firebase:
+sensores/
+├── pH
+├── EC
+├── TDS
+├── waterTemp
+├── dhtTemp
+├── hum
+└── nivel
 ```
 
 ---
 
-## 🚀 PRÓXIMOS PASOS
+## 📱 Tecnologías Utilizadas
 
-### Opción 1: Empezar YA (recomendado)
-```
-1. Lee: GUIA_RAPIDA.md (5 min)
-2. Usa el botón (30 segundos)
-3. ¡Listo!
-```
+| Tecnología | Versión | Uso |
+|-----------|---------|-----|
+| HTML5 | - | Estructura |
+| CSS3 | - | Estilos |
+| JavaScript (ES6+) | - | Lógica |
+| Bootstrap | 5.3.3 | Framework UI |
+| Chart.js | 4.4.0 | Gráficas |
+| jsPDF | 2.5.1 | Reportes PDF |
+| Firebase | 9.23.0 | BD Realtime |
+| Font Awesome | 6.5.0 | Iconos |
+| Service Worker | - | Offline mode |
 
-### Opción 2: Aprender primero
-```
-1. Lee: AUTOMATIZACION_NUTRIENTES.md (20 min)
-2. Lee: EJEMPLOS_TOMATE.md (15 min)
-3. Usa: CHECKLIST_VERIFICACION.md
-4. Usa el botón
-```
+---
 
-### Opción 3: Técnico detallado
-```
-1. Lee: RESUMEN_CAMBIOS.md
-2. Revisa: config_automatizacion.json
-3. Lee: practica4.html (función automatizarAjustePPM)
-4. Ajusta parámetros si lo necesitas
+## 🛠️ Desarrollo
+
+### Estructura de Scripts
+
+**Archivo**: `index.html` (3,300+ líneas)
+- Contiene toda la interfaz UI
+- Scripts inline optimizados
+- Service Worker registration
+
+**Estilos**: `src/estilo.css`
+- Diseño responsivo
+- Paleta personalizada
+- Animaciones y transiciones
+
+### Agregar Nuevas Funciones
+
+1. Editar `index.html` para UI
+2. Agregar funciones JavaScript en las secciones correspondientes
+3. Actualizar `src/estilo.css` si es necesario
+4. Actualizar documentación en `docs/`
+
+---
+
+## 📖 Documentación
+
+Consulta los archivos en la carpeta `/docs` para:
+- [`PWA_README.md`](docs/PWA_README.md) - Detalles de Progressive Web App
+- [`AUTOMATIZACION_NUTRIENTES.md`](docs/AUTOMATIZACION_NUTRIENTES.md) - Fórmulas de nutrientes
+- [`GITHUB_SETUP.md`](docs/GITHUB_SETUP.md) - Guía de deployment
+- Y más archivos técnicos...
+
+---
+
+## 🚀 Deployment a GitHub Pages
+
+```bash
+# 1. Crear repositorio en GitHub
+# ...crear en github.com con el nombre: sistema-hidroponico
+
+# 2. Configurar remoto local
+git remote set-url origin https://github.com/TU_USUARIO/sistema-hidroponico.git
+
+# 3. Push inicial
+git add .
+git commit -m "Deploy: Sistema Hidropónico PWA"
+git push -u origin main
+
+# 4. En GitHub:
+# Settings > Pages > Source: main branch > root folder
+# Esperar 1-2 minutos hasta que esté en vivo
 ```
 
 ---
 
-## ⚠️ IMPORTANTE SABER
+## 📞 Soporte y Contribuciones
 
-✅ **El sistema es seguro porque:**
-- No permite agregar >200 ppm en una dosis
-- No permite cambiar >50% agua en una vez
-- Sugiere dividir si es necesario
-- Todas las instrucciones son conservadoras
-
-✅ **Pero TÚ debes:**
-- Verificar que los sensores estén calibrados
-- Medir SIEMPRE después de 5-10 minutos
-- Observar a las plantas por estrés
-- Ajustar si ves algo raro
-- Confiar, pero verificar
+Para reportar errores o sugerencias, abre un **Issue** en el repositorio.
 
 ---
 
-## 🎯 RESUMEN EN UNA ORACIÓN
+## 📄 Licencia
 
-**Un clic en el botón `⚙️ Automatizar Nutrientes` y el sistema te dice exactamente cuánto fertilizante agregar o cuánta agua cambiar, sin errores.**
-
----
-
-## 🆘 SI ALGO FALLA
-
-1. **Abre consola:** `F12` → Consola
-2. **Busca errores** (texto rojo)
-3. **Revisa:** 
-   - ¿Los sensores están conectados?
-   - ¿El TDS muestra un número?
-   - ¿Ingresaste el volumen?
-   - ¿La etapa está correcta?
-4. **Lee:** CHECKLIST_VERIFICACION.md sección "Troubleshooting"
+Este proyecto está bajo licencia MIT. Libre para uso educativo y comercial.
 
 ---
 
-## 📞 CONTACTO / SOPORTE
+## 👨‍🌾 Créditos
 
-Si tienes preguntas, consulta primero:
-1. **INDICE.md** - Para encontrar el documento correcto
-2. **CHECKLIST_VERIFICACION.md** - Sección "Debugging Avanzado"
-3. **Los documentos** - Cada uno trata un aspecto diferente
+Desarrollado para monitoreo inteligente de hidroponía.
 
----
-
-## 🎉 CONCLUSIÓN
-
-Tu sistema hidropónico ahora tiene:
-```
-❌ ANTES:  Cálculos manuales, confusos, lentos, propensos a errores
-✅ AHORA:  Automatización inteligente, precisa, rápida, segura
-```
-
-**¡Disfruta de tu cultivo más eficiente! 🌱🍅**
-
----
-
-**Versión:** 1.0  
-**Fecha:** Marzo 2026  
-**Estado:** ✅ Completamente Operativo
-
-**¿Listo?** → Lee **[GUIA_RAPIDA.md](GUIA_RAPIDA.md)** 🚀
+**Última actualización**: 2024
+**Estado**: ✅ Funcional con PWA y Automatización
