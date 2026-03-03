@@ -1,17 +1,17 @@
 
 :root {
---primary-color: #dc2626;
+--primary-color: #b71c1c;
 --success-color: #10b981;
 --success-light: #d1fae5;
 --warning-color: #f97316;
---danger-color: #991b1b;
+--danger-color: #7c2d12;
 --info-color: #0891b2;
 --bg-gradient: #ffffff;
 --card-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
 --card-hover-shadow: 0 12px 40px rgba(16, 185, 129, 0.18);
 --text-main: #1f2937;
 --text-secondary: #6b7280;
---tomato-gradient: #dc2626;
+--tomato-gradient: #b71c1c;
 --success-gradient: #10b981;
 --hydro-gradient: #0891b2;
 }
