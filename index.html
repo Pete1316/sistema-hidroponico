@@ -261,15 +261,15 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <div class="d-flex gap-2 align-items-center">
 <input type="number" class="form-control form-control-sm" id="ppmInput" min="0" max="1500" value="600" step="10" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 85px;">
 <div class="d-flex align-items-center gap-1">
-<small class="text-muted" style="font-size: 0.7rem; white-space: nowrap;">Automático</small>
+<small class="text-muted" style="font-size: 0.7rem; white-space: nowrap;"></small>
 <div class="form-check form-switch" style="margin: 0; padding-left: 0;">
 <input class="form-check-input" type="checkbox" id="ppmAutoSwitch" onchange="togglePpmAuto();" style="cursor: pointer; width: 2.8em; height: 1.4em; margin: 0;">
 </div>
 </div>
 </div>
 <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">
-<span class="badge bg-info badge-sm">📊 Dashboard: <span id="ppmActualDashboard">--</span> ppm</span>
-<span class="badge bg-secondary badge-sm ms-1" id="ppmStatusBadge" style="display: none;">🔄 En tiempo real</span>
+<span class="badge bg-info text-white" style="padding: 8px 12px; font-size: 0.9rem; font-weight: 600;">📊 <span id="ppmActualDashboard">--</span> ppm</span>
+<span class="badge bg-success text-white ms-2" id="ppmStatusBadge" style="display: none; padding: 8px 12px; font-size: 0.9rem; font-weight: 600;">🔄 En tiempo real</span>
 </small>
 </div>
 
