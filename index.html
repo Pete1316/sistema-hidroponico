@@ -267,10 +267,14 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div>
 </div>
 </div>
-<small class="text-muted d-block mt-2" style="font-size: 0.75rem;">
-<span class="badge bg-info text-white" style="padding: 8px 12px; font-size: 0.9rem; font-weight: 600;">📊 <span id="ppmActualDashboard">--</span> ppm</span>
-<span class="badge bg-success text-white ms-2" id="ppmStatusBadge" style="display: none; padding: 8px 12px; font-size: 0.9rem; font-weight: 600;">🔄 En tiempo real</span>
-</small>
+<div class="d-flex flex-column gap-2 mt-2">
+<div class="d-flex align-items-center gap-2">
+<span class="badge bg-info text-white" style="padding: 6px 10px; font-size: 0.85rem; flex: 1; text-align: center;">
+📊 <span id="ppmActualDashboard">--</span> ppm
+</span>
+<span class="badge bg-success text-white" id="ppmStatusBadge" style="display: none; padding: 6px 10px; font-size: 0.75rem;">🔄</span>
+</div>
+</div>
 </div>
 
 <!-- Volumen -->
