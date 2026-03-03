@@ -4,12 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
 <meta name="description" content="Prototipo hidropónicos" />
-<meta name="theme-color" content="#b71c1c" />
+<meta name="theme-color" content="#059669" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Hidropónica" />
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23b71c1c' width='180' height='180' rx='40'/><text x='90' y='90' font-size='100' fill='white' text-anchor='middle' dominant-baseline='middle' font-weight='bold'>H</text></svg>" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23059669' width='180' height='180' rx='40'/><text x='90' y='90' font-size='100' fill='white' text-anchor='middle' dominant-baseline='middle' font-weight='bold'>H</text></svg>" />
 <link rel="manifest" href="manifest.json" />
 <!-- PWA Preload -->
 <link rel="preload" href="src/estilo.css" as="style" />
@@ -1406,13 +1406,13 @@ function initCharts() {
                     {
                         label: 'Temp. Agua (°C)',
                         data: chartData.temperature.waterTemp,
-                        borderColor: '#b71c1c',
-                        backgroundColor: 'rgba(183, 28, 28, 0.1)',
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
                         borderWidth: 3,
                         fill: true,
                         tension: 0.4,
                         pointRadius: 5,
-                        pointBackgroundColor: '#b71c1c',
+                        pointBackgroundColor: '#059669',
                         pointBorderColor: '#fff',
                         pointBorderWidth: 2
                     },
@@ -2995,8 +2995,8 @@ function automatizarAjustePPM() {
         recomendacion.detalles.push(`<strong>PPM Actual:</strong> ${ppmActual} ppm`);
         recomendacion.detalles.push(`<strong>PPM Ideal:</strong> ${ppmMin}-${ppmMax} ppm`);
         recomendacion.detalles.push(`<strong>Exceso:</strong> ${ppmExceso.toFixed(0)} ppm (${porcentajeExceso}%)`);
-        recomendacion.detalles.push(`<br><strong style="color: #b71c1c;">💧 CAMBIO DE AGUA REQUERIDO:</strong>`);
-        recomendacion.detalles.push(`<strong style="font-size: 1.2em; color: #b71c1c;">Cambiar ${volumenCambiar} L de ${volumen} L (${porcentajeCambio}%)</strong>`);
+        recomendacion.detalles.push(`<br><strong style="color: #059669;">💧 CAMBIO DE AGUA REQUERIDO:</strong>`);
+        recomendacion.detalles.push(`<strong style="font-size: 1.2em; color: #059669;">Cambiar ${volumenCambiar} L de ${volumen} L (${porcentajeCambio}%)</strong>`);
         recomendacion.detalles.push(`<strong style="color: #059669;">PPM esperado después:</strong> ${ppmIdeal.toFixed(0)} ppm`);
         
         recomendacion.detalles.push(`<br><strong style="color: #ea580c;">⚡ INSTRUCCIONES:</strong>`);
@@ -3066,12 +3066,12 @@ function mostrarResultadoAutomatizacion(recomendacion) {
     // Llenar contenido
     const colores = {
         '🟢': '#10b981',
-        '🔴': '#b71c1c',
+        '🔴': '#059669',
         '🟡': '#f59e0b'
     };
     
     let color = '#10b981';
-    if (recomendacion.estado.includes('🔴')) color = '#b71c1c';
+    if (recomendacion.estado.includes('🔴')) color = '#059669';
     
     let contenido = `
         <div style="border-left: 5px solid ${color}; padding: 15px; margin-bottom: 20px; background-color: rgba(0,0,0,0.02); border-radius: 5px;">
