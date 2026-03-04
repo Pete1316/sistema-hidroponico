@@ -286,28 +286,28 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <!-- ================= PESTAÑA DIAGNÓSTICO: DIAGNÓSTICO DEL CULTIVO ================= -->
 <div class="tab-pane fade" id="diagnostico-pane" role="tabpanel" aria-labelledby="diagnostico-tab">
 <div class="container my-4">
-<div class="box glass-card p-6 rounded-xl" id="diagnosticoBox">
+<div class="box" id="diagnosticoBox" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);">
 <!-- HEADER CON CONTROLES PRINCIPALES -->
-<div class="text-center mb-6">
-<h4 class="text-2xl font-bold text-hidro-green mb-2"><i class="fas fa-stethoscope me-3" style="font-size: 1.5rem;"></i>Diagnóstico del Cultivo de Tomate</h4>
-<p class="text-gray-600 mb-0"><i class="fas fa-info-circle me-2"></i>Complete los datos para generar diagnóstico y cálculo de nutrientes</p>
+<div class="text-center mb-4">
+<h4><i class="fas fa-stethoscope me-3" style="font-size: 1.5rem;"></i>Diagnóstico del Cultivo de Tomate</h4>
+<p class="text-muted mb-3"><i class="fas fa-info-circle me-2"></i>Complete los datos para generar diagnóstico y cálculo de nutrientes</p>
 </div>
 
 <!-- CONTROLES ORGANIZADOS EN GRID -->
-<div class="row g-3 mb-6">
+<div class="row g-2 mb-4">
 <!-- Días -->
 <div class="col-6 col-md-3">
-<label for="diasTomate" class="form-label font-semibold text-sm block mb-2 text-gray-700"><i class="fas fa-calendar-alt me-1 text-hidro-green"></i>Días</label>
+<label for="diasTomate" class="form-label fw-bold small"><i class="fas fa-calendar-alt me-1"></i>Días</label>
 <div class="input-group input-group-sm">
-<input type="text" id="diasTomate" class="form-control glass-dark border-hidro-green/30 focus:border-hidro-green transition-colors" value="0" maxlength="3" inputmode="numeric" oninput="validarDias(this)" placeholder="0">
-<span class="input-group-text bg-white/50 border-hidro-green/30">/120</span>
+<input type="text" id="diasTomate" class="form-control" value="0" maxlength="3" inputmode="numeric" oninput="validarDias(this)" placeholder="0">
+<span class="input-group-text">/120</span>
 </div>
 </div>
 
 <!-- Etapa -->
 <div class="col-6 col-md-3">
-<label for="etapaSelectNutrientes" class="form-label font-semibold text-sm block mb-2 text-gray-700"><i class="fas fa-leaf me-1 text-hidro-green"></i>Etapa</label>
-<select class="form-select form-select-sm glass-dark border-hidro-green/30 focus:border-hidro-green transition-colors" id="etapaSelectNutrientes" onchange="actualizarPpmRecomendada()">
+<label for="etapaSelectNutrientes" class="form-label fw-bold small"><i class="fas fa-leaf me-1"></i>Etapa</label>
+<select class="form-select form-select-sm" id="etapaSelectNutrientes" onchange="actualizarPpmRecomendada()">
 <option value="plantula">🌱 Semilla</option>
 <option value="vegetativa" selected>🌿 Vegetativa</option>
 <option value="floracion">🌸 Floración</option>
@@ -317,9 +317,9 @@ aria-controls="diagnostico-pane" aria-selected="false">
 
 <!-- PPM con Switch -->
 <div class="col-6 col-md-3">
-<label for="ppmInput" class="form-label font-semibold text-sm d-block mb-2 text-gray-700"><i class="fas fa-droplet me-1 text-hidro-blue"></i>PPM</label>
+<label for="ppmInput" class="form-label fw-bold small d-block mb-2"><i class="fas fa-droplet me-1"></i>PPM</label>
 <div class="d-flex gap-2 align-items-center">
-<input type="number" class="form-control form-control-sm glass-dark border-hidro-blue/30 focus:border-hidro-blue transition-colors" id="ppmInput" min="0" max="1500" value="600" step="10" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 85px;">
+<input type="number" class="form-control form-control-sm" id="ppmInput" min="0" max="1500" value="600" step="10" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 85px;">
 <div class="d-flex align-items-center gap-1">
 <small class="text-muted" style="font-size: 0.7rem; white-space: nowrap;"></small>
 <div class="form-check form-switch" style="margin: 0; padding-left: 0;">
@@ -329,59 +329,59 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div>
 <div class="d-flex flex-column gap-2 mt-2">
 <div class="d-flex align-items-center gap-2">
-<span class="badge bg-gradient-to-r from-hidro-blue to-hidro-teal text-white" style="padding: 8px 12px; font-size: 0.85rem; flex: 1; text-align: center;">
+<span class="badge bg-info text-white" style="padding: 6px 10px; font-size: 0.85rem; flex: 1; text-align: center;">
 📊 <span id="ppmActualDashboard">--</span> ppm
 </span>
-<span class="badge bg-gradient-to-r from-hidro-green/80 to-hidro-blue/80 text-white" id="ppmStatusBadge" style="display: none; padding: 8px 10px; font-size: 0.75rem; animation: pulse 2s infinite;">🔄</span>
+<span class="badge bg-success text-white" id="ppmStatusBadge" style="display: none; padding: 6px 10px; font-size: 0.75rem;">🔄</span>
 </div>
 </div>
 </div>
 
 <!-- Volumen -->
 <div class="col-6 col-md-3">
-<label for="volumeTanque" class="form-label font-semibold text-sm block mb-2 text-gray-700"><i class="fas fa-vial me-1 text-hidro-orange"></i>Volumen</label>
+<label for="volumeTanque" class="form-label fw-bold small"><i class="fas fa-vial me-1"></i>Volumen</label>
 <div class="input-group input-group-sm">
-<input type="number" class="form-control glass-dark border-hidro-orange/30 focus:border-hidro-orange transition-colors" id="volumeTanque" min="1" max="10000" value="100" placeholder="100">
-<span class="input-group-text bg-white/50 border-hidro-orange/30">L</span>
+<input type="number" class="form-control" id="volumeTanque" min="1" max="10000" value="100" placeholder="100">
+<span class="input-group-text">L</span>
 </div>
 </div>
 </div>
 
 <!-- Botones de Acción -->
-<div class="row g-3 mb-4">
+<div class="row g-2 mb-3">
 <div class="col-12 col-md-4">
-<button class="btn btn-primary btn-sm w-100 bg-gradient-to-r from-hidro-green to-hidro-blue hover:shadow-lg transition-all duration-300 border-0 font-semibold" onclick="calcularCompleto()">
-<i class="fas fa-calculator me-2"></i>Calcular Todo
+<button class="btn btn-primary btn-sm w-100" onclick="calcularCompleto()">
+<i class="fas fa-calculator me-1"></i>Calcular Todo
 </button>
 </div>
 <div class="col-12 col-md-4">
-<button class="btn btn-sm w-100 bg-gradient-to-r from-hidro-teal to-hidro-blue hover:shadow-lg transition-all duration-300 border-0 font-semibold text-white" onclick="automatizarAjustePPM()" style="font-weight: 600;">
-<i class="fas fa-robot me-2"></i>⚙️ Automatizar Nutrientes
+<button class="btn btn-danger btn-sm w-100" onclick="automatizarAjustePPM()" style="font-weight: 600;">
+<i class="fas fa-robot me-1"></i>⚙️ Automatizar Nutrientes
 </button>
 </div>
 <div class="col-12 col-md-4">
-<button class="btn btn-success btn-sm w-100 bg-gradient-to-r from-hidro-green/70 to-hidro-blue/70 hover:from-hidro-green hover:to-hidro-blue hover:shadow-lg transition-all duration-300 border-0 font-semibold" onclick="generarReporte()" id="btnGenerarReporte" style="opacity: 0.6;" disabled>
-<i class="fas fa-file-pdf me-2"></i>Generar PDF
+<button class="btn btn-success btn-sm w-100" onclick="generarReporte()" id="btnGenerarReporte" style="opacity: 0.6;" disabled>
+<i class="fas fa-file-pdf me-1"></i>Generar PDF
 </button>
 </div>
 </div>
 
 <!-- INFO EN BADGES COMPACTA -->
-<div class="alert glass-dark border-hidro-green/30 py-4 px-4 mb-4 rounded-lg" role="alert">
-<div class="d-flex flex-wrap gap-4 justify-content-center align-items-center">
-<div class="text-center">
-<small class="text-gray-600 d-block text-sm font-medium">Etapa Actual</small>
-<strong class="text-hidro-green text-lg block mt-1"><i class="fas fa-leaf me-2"></i><span id="etapaActual">Vegetativa</span></strong>
+<div class="alert alert-light border-1 border-info py-2 px-3 mb-3" role="alert" style="background-color: #f0f9ff;">
+<div class="d-flex flex-wrap gap-3 justify-content-center align-items-center">
+<div>
+<small class="text-muted d-block">Etapa Actual</small>
+<strong><i class="fas fa-leaf me-1"></i><span id="etapaActual">Vegetativa</span></strong>
 </div>
-<div class="vr opacity-50"></div>
-<div class="text-center">
-<small class="text-gray-600 d-block text-sm font-medium">PPM Ideal</small>
-<strong class="text-hidro-orange text-lg block mt-1"><i class="fas fa-flask me-2"></i><span id="ppmRecomendada">400-800</span> ppm</strong>
+<div class="vr"></div>
+<div>
+<small class="text-muted d-block">PPM Ideal</small>
+<strong style="color: #f59e0b;"><i class="fas fa-flask me-1"></i><span id="ppmRecomendada">400-800</span> ppm</strong>
 </div>
-<div class="vr opacity-50"></div>
-<div class="text-center">
-<small class="text-gray-600 d-block text-sm font-medium">Sensor EC</small>
-<strong class="text-hidro-blue text-lg block mt-1"><i class="fas fa-database me-2"></i><span id="ppmActualDashboard">--</span> ppm</strong>
+<div class="vr"></div>
+<div>
+<small class="text-muted d-block">Sensor EC</small>
+<strong style="color: #10b981;"><i class="fas fa-database me-1"></i><span id="ppmActualDashboard">--</span> ppm</strong>
 </div>
 </div>
 </div>
@@ -475,163 +475,178 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div> <!-- Fin pestaña Diagnóstico -->
 <!-- ================= PESTAÑA 2: ENFERMEDADES ================= -->
 <div class="tab-pane fade" id="enfermedades" role="tabpanel" aria-labelledby="enfermedades-tab" data-lazy="true" style="will-change: contents;">
-<div class="container my-4">
-<h3 class="text-center mb-5 text-danger"><i class="fas fa-virus me-2"></i>Enfermedades Comunes en Tomate Hidropónico</h3>
-<div class="accordion" id="accordionEnfermedades" style="will-change: contents; contain: layout;">
+<div class="container my-6">
+<div class="text-center mb-8">
+<h3 class="text-3xl font-bold bg-gradient-to-r from-hidro-green to-hidro-blue bg-clip-text text-transparent mb-2"><i class="fas fa-virus me-3"></i>Enfermedades Comunes en Tomate Hidropónico</h3>
+<p class="text-gray-600 text-sm">Identificación, síntomas y manejo de enfermedades fúngicas y bacterianas</p>
+</div>
+<div class="accordion glass-card p-4 rounded-xl" id="accordionEnfermedades" style="will-change: contents; contain: layout;">
 <!-- Tizón Tardío -->
-<div class="accordion-item">
-<h2 class="accordion-header">
-<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tizon">
-<i class="fas fa-circle-exclamation text-danger me-2"></i>Tizón Tardío (Phytophthora infestans)
+<div class="accordion-item rounded-lg mb-3 border-0 bg-white/70 backdrop-blur-glass border border-white/20 overflow-hidden">
+<h2 class="accordion-header bg-gradient-to-r from-red-50 to-transparent">
+<button class="accordion-button collapsed font-semibold text-gray-800 hover:bg-red-100/50 transition-colors" type="button" data-bs-toggle="collapse" data-bs-target="#tizon">
+<i class="fas fa-circle-exclamation text-red-500 me-3 text-lg"></i><span class="font-bold">Tizón Tardío (Phytophthora infestans)</span>
 </button>
 </h2>
 <div id="tizon" class="accordion-collapse collapse" data-bs-parent="#accordionEnfermedades">
-<div class="accordion-body">
-<div class="row g-3">
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-search me-1"></i>Síntomas:</h6>
-<ul class="small mb-0">
-<li>Manchas marrones con halo amarillo en hojas</li>
-<li>Podredumbre blanda en frutos</li>
-<li>Polvo blanco en envés de hojas (esporas)</li>
+<div class="accordion-body bg-white/50 p-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-blue font-bold mb-3"><i class="fas fa-search me-2"></i>Síntomas:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-green">•</span> Manchas marrones con halo amarillo en hojas</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">•</span> Podredumbre blanda en frutos</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">•</span> Polvo blanco en envés de hojas (esporas)</li>
 </ul>
 </div>
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-thermometer-half me-1"></i>Condiciones favorables:</h6>
-<ul class="small mb-0">
-<li>Humedad > 90%</li>
-<li>Temperatura: 15-20°C</li>
-<li>Mala ventilación</li>
-</ul>
-</div>
-</div>
-<hr>
-<h6 class="text-success"><i class="fas fa-flask me-1"></i>Manejo en hidroponía:</h6>
-<ul class="small mb-0">
-<li>Evitar salpicaduras de agua en follaje</li>
-<li>Desinfectar solución nutritiva con UV o peróxido</li>
-<li>Eliminar plantas infectadas inmediatamente</li>
-<li>Aplicar <strong>Bacillus subtilis</strong> como preventivo</li>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-orange font-bold mb-3"><i class="fas fa-thermometer-half me-2"></i>Condiciones favorables:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Humedad > 90%</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Temperatura: 15-20°C</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Mala ventilación</li>
 </ul>
 </div>
 </div>
+<div class="my-4 h-px bg-gradient-to-r from-transparent via-hidro-green/20 to-transparent"></div>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-green font-bold mb-3"><i class="fas fa-flask me-2"></i>Manejo en hidroponía:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Evitar salpicaduras de agua en follaje</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Desinfectar solución nutritiva con UV o peróxido</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Eliminar plantas infectadas inmediatamente</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Aplicar <strong>Bacillus subtilis</strong> como preventivo</li>
+</ul>
 </div>
+</div>
+</div>
+</div>
+
 <!-- Fusarium -->
-<div class="accordion-item">
-<h2 class="accordion-header">
-<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fusarium">
-<i class="fas fa-circle-exclamation text-warning me-2"></i>Marchitez por Fusarium (Fusarium oxysporum)
+<div class="accordion-item rounded-lg mb-3 border-0 bg-white/70 backdrop-blur-glass border border-white/20 overflow-hidden">
+<h2 class="accordion-header bg-gradient-to-r from-yellow-50 to-transparent">
+<button class="accordion-button collapsed font-semibold text-gray-800 hover:bg-yellow-100/50 transition-colors" type="button" data-bs-toggle="collapse" data-bs-target="#fusarium">
+<i class="fas fa-circle-exclamation text-yellow-600 me-3 text-lg"></i><span class="font-bold">Marchitez por Fusarium (Fusarium oxysporum)</span>
 </button>
 </h2>
 <div id="fusarium" class="accordion-collapse collapse" data-bs-parent="#accordionEnfermedades">
-<div class="accordion-body">
-<div class="row g-3">
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-search me-1"></i>Síntomas:</h6>
-<ul class="small mb-0">
-<li>Amarillamiento unilateral de hojas</li>
-<li>Marchitez en horas cálidas, recuperación nocturna</li>
-<li>Vasos conductores marrones al cortar tallo</li>
+<div class="accordion-body bg-white/50 p-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-blue font-bold mb-3"><i class="fas fa-search me-2"></i>Síntomas:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-blue">•</span> Amarillamiento unilateral de hojas</li>
+<li class="flex items-start gap-2"><span class="text-hidro-blue">•</span> Marchitez en horas cálidas, recuperación nocturna</li>
+<li class="flex items-start gap-2"><span class="text-hidro-blue">•</span> Vasos conductores marrones al cortar tallo</li>
 </ul>
 </div>
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-thermometer-half me-1"></i>Condiciones favorables:</h6>
-<ul class="small mb-0">
-<li>Temperatura del agua > 28°C</li>
-<li>pH fuera de rango ideal</li>
-<li>Estrés hídrico o nutricional</li>
-</ul>
-</div>
-</div>
-<hr>
-<h6 class="text-success"><i class="fas fa-flask me-1"></i>Manejo en hidroponía:</h6>
-<ul class="small mb-0">
-<li>Mantener temperatura del agua 18-24°C</li>
-<li>Usar <strong>Trichoderma harzianum</strong> en sustrato</li>
-<li>Rotar cultivos y desinfectar sistema entre ciclos</li>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-orange font-bold mb-3"><i class="fas fa-thermometer-half me-2"></i>Condiciones favorables:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Temperatura del agua > 28°C</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> pH fuera de rango ideal</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Estrés hídrico o nutricional</li>
 </ul>
 </div>
 </div>
+<div class="my-4 h-px bg-gradient-to-r from-transparent via-hidro-blue/20 to-transparent"></div>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-green font-bold mb-3"><i class="fas fa-flask me-2"></i>Manejo en hidroponía:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Mantener temperatura del agua 18-24°C</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Usar <strong>Trichoderma harzianum</strong> en sustrato</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Rotar cultivos y desinfectar sistema entre ciclos</li>
+</ul>
 </div>
+</div>
+</div>
+</div>
+
 <!-- Botrytis -->
-<div class="accordion-item">
-<h2 class="accordion-header">
-<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#botrytis">
-<i class="fas fa-circle-exclamation text-secondary me-2"></i>Moho Gris (Botrytis cinerea)
+<div class="accordion-item rounded-lg mb-3 border-0 bg-white/70 backdrop-blur-glass border border-white/20 overflow-hidden">
+<h2 class="accordion-header bg-gradient-to-r from-gray-100 to-transparent">
+<button class="accordion-button collapsed font-semibold text-gray-800 hover:bg-gray-200/50 transition-colors" type="button" data-bs-toggle="collapse" data-bs-target="#botrytis">
+<i class="fas fa-circle-exclamation text-gray-600 me-3 text-lg"></i><span class="font-bold">Moho Gris (Botrytis cinerea)</span>
 </button>
 </h2>
 <div id="botrytis" class="accordion-collapse collapse" data-bs-parent="#accordionEnfermedades">
-<div class="accordion-body">
-<div class="row g-3">
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-search me-1"></i>Síntomas:</h6>
-<ul class="small mb-0">
-<li>Manchas acuosas en hojas y tallos</li>
-<li>Polvo gris característico en zonas húmedas</li>
-<li>Pudrición blanda en frutos maduros</li>
+<div class="accordion-body bg-white/50 p-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-blue font-bold mb-3"><i class="fas fa-search me-2"></i>Síntomas:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-gray-500">•</span> Manchas acuosas en hojas y tallos</li>
+<li class="flex items-start gap-2"><span class="text-gray-500">•</span> Polvo gris característico en zonas húmedas</li>
+<li class="flex items-start gap-2"><span class="text-gray-500">•</span> Pudrición blanda en frutos maduros</li>
 </ul>
 </div>
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-thermometer-half me-1"></i>Condiciones favorables:</h6>
-<ul class="small mb-0">
-<li>Humedad relativa > 85%</li>
-<li>Temperatura: 18-23°C</li>
-<li>Condensación en hojas</li>
-</ul>
-</div>
-</div>
-<hr>
-<h6 class="text-success"><i class="fas fa-flask me-1"></i>Manejo en hidroponía:</h6>
-<ul class="small mb-0">
-<li>Mejorar ventilación y circulación de aire</li>
-<li>Evitar mojar follaje al regar</li>
-<li>Remover flores y frutos senescentes</li>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-orange font-bold mb-3"><i class="fas fa-thermometer-half me-2"></i>Condiciones favorables:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Humedad relativa > 85%</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Temperatura: 18-23°C</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Condensación en hojas</li>
 </ul>
 </div>
 </div>
+<div class="my-4 h-px bg-gradient-to-r from-transparent via-gray-300/20 to-transparent"></div>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-green font-bold mb-3"><i class="fas fa-flask me-2"></i>Manejo en hidroponía:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Mejorar ventilación y circulación de aire</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Evitar mojar follaje al regar</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Remover flores y frutos senescentes</li>
+</ul>
 </div>
+</div>
+</div>
+</div>
+
 <!-- Pythium -->
-<div class="accordion-item">
-<h2 class="accordion-header">
-<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pythium">
-<i class="fas fa-circle-exclamation text-danger me-2"></i>Podredumbre de Raíz (Pythium spp.)
+<div class="accordion-item rounded-lg border-0 bg-white/70 backdrop-blur-glass border border-white/20 overflow-hidden">
+<h2 class="accordion-header bg-gradient-to-r from-red-50 to-transparent">
+<button class="accordion-button collapsed font-semibold text-gray-800 hover:bg-red-100/50 transition-colors" type="button" data-bs-toggle="collapse" data-bs-target="#pythium">
+<i class="fas fa-circle-exclamation text-red-500 me-3 text-lg"></i><span class="font-bold">Podredumbre de Raíz (Pythium spp.)</span>
 </button>
 </h2>
 <div id="pythium" class="accordion-collapse collapse" data-bs-parent="#accordionEnfermedades">
-<div class="accordion-body">
-<div class="row g-3">
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-search me-1"></i>Síntomas:</h6>
-<ul class="small mb-0">
-<li>Raíces marrones, blandas y con mal olor</li>
-<li>Crecimiento raquítico y amarillamiento</li>
-<li>Marchitez a pesar de humedad adecuada</li>
+<div class="accordion-body bg-white/50 p-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-blue font-bold mb-3"><i class="fas fa-search me-2"></i>Síntomas:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-red-500">•</span> Raíces marrones, blandas y con mal olor</li>
+<li class="flex items-start gap-2"><span class="text-red-500">•</span> Crecimiento raquítico y amarillamiento</li>
+<li class="flex items-start gap-2"><span class="text-red-500">•</span> Marchitez a pesar de humedad adecuada</li>
 </ul>
 </div>
-<div class="col-md-6">
-<h6 class="text-primary"><i class="fas fa-thermometer-half me-1"></i>Condiciones favorables:</h6>
-<ul class="small mb-0">
-<li>Agua estancada o mal oxigenada</li>
-<li>Temperatura del agua > 25°C</li>
-<li>Bajos niveles de oxígeno disuelto</li>
-</ul>
-</div>
-</div>
-<hr>
-<h6 class="text-success"><i class="fas fa-flask me-1"></i>Manejo en hidroponía:</h6>
-<ul class="small mb-0">
-<li>Mantener oxígeno disuelto > 6 ppm (usar aireadores)</li>
-<li>Temperatura del agua: 18-22°C ideal</li>
-<li>Aplicar <strong>peróxido de hidrógeno</strong> (H₂O₂) en dosis controladas</li>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-orange font-bold mb-3"><i class="fas fa-thermometer-half me-2"></i>Condiciones favorables:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Agua estancada o mal oxigenada</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Temperatura del agua > 25°C</li>
+<li class="flex items-start gap-2"><span class="text-hidro-orange">•</span> Bajos niveles de oxígeno disuelto</li>
 </ul>
 </div>
 </div>
+<div class="my-4 h-px bg-gradient-to-r from-transparent via-red-300/20 to-transparent"></div>
+<div class="glass-dark p-4 rounded-lg">
+<h6 class="text-hidro-green font-bold mb-3"><i class="fas fa-flask me-2"></i>Manejo en hidroponía:</h6>
+<ul class="text-sm space-y-1 text-gray-700">
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Mantener oxígeno disuelto > 6 ppm (usar aireadores)</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Temperatura del agua: 18-22°C ideal</li>
+<li class="flex items-start gap-2"><span class="text-hidro-green">✓</span> Aplicar <strong>peróxido de hidrógeno</strong> (H₂O₂) en dosis controladas</li>
+</ul>
 </div>
 </div>
-<div class="alert alert-info mt-4">
-<i class="fas fa-lightbulb me-2"></i>
-<strong>Nota académica:</strong> En sistemas hidropónicos, la prevención es clave.
-La mayoría de enfermedades fúngicas se propagan por agua contaminada.
+</div>
+</div>
+</div>
+
+<div class="alert glass-dark border-l-4 border-hidro-green mt-6 p-4 rounded-lg bg-hidro-green/10">
+<i class="fas fa-lightbulb text-hidro-green me-3 text-lg"></i>
+<strong class="text-hidro-green">💡 Nota académica:</strong> 
+<p class="text-sm text-gray-700 mt-2">En sistemas hidropónicos, la prevención es clave. La mayoría de enfermedades fúngicas se propagan por agua contaminada. Mantén la higiene del sistema y monitorea constantemente.</p>
 </div>
 </div>
 </div>
