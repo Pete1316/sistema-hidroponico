@@ -36,16 +36,10 @@
 <div class="container my-4">
 <!-- HEADER -->
 <header class="text-center mb-4">
-<div class="d-flex justify-content-between align-items-start mb-3">
-    <div style="flex: 1;"></div>
-    <div style="flex: 1; text-align: center;">
+<div class="d-flex justify-content-center align-items-center mb-3">
+    <div style="text-align: center;">
         <h1><i class="fas me-2"></i>Prototipo Hidropónico</h1>
-        <p class="subtitle"><i class="fas fa-leaf me-2"></i>Monitoreo en Tiempo Real - Tomate Hidropónico</p>
-    </div>
-    <div style="flex: 1; text-align: right;">
-        <button id="btnInstalarPWA" class="btn btn-sm btn-outline-danger" style="display: none; border-radius: 20px;" title="Instalar aplicación">
-            <i class="fas fa-download me-1"></i>Instalar App
-        </button>
+        <p class="subtitle"><i class="fas fa-leaf me-2"></i>Tomate Hidropónico</p>
     </div>
 </div>
 </header>
@@ -94,8 +88,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <!-- Botón Información Técnica al inicio del Dashboard -->
 <div class="d-flex justify-content-between align-items-center mb-4" style="flex-wrap: wrap; gap: 1rem;">
 <div>
-<h5 style="margin: 0; color: var(--primary-color); font-weight: 800;"><i class="fas fa-tachometer-alt me-2"></i>Panel de Sensores en Tiempo Real</h5>
-<small class="text-muted">Monitoreo continuo del sistema hidropónico</small>
+<h5 style="margin: 0; color: var(--primary-color); font-weight: 800;"><i class="fas fa-tachometer-alt me-2"></i>Panel de Sensores</h5>
 </div>
 <button class="btn btn-success" onclick="toggleModoDocente()" id="btnDocente" aria-pressed="false" style="font-weight: 600; padding: 0.7rem 1.5rem;">
 <i class="fas fa-chalkboard-teacher me-2"></i>Información Técnica
@@ -219,8 +212,8 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div>
 </div>
 <div class="footer">
-<p><i class="fas fa-microchip me-1"></i>Sistema IoT para Agricultura Hidropónica | Datos actualizados en tiempo real</p>
-<p class="mb-0 small"><i class="fas fa-cloud me-1"></i>Conectado a Firebase Realtime Database</p>
+
+
 </div>
 </div> <!-- Fin pestaña Dashboard -->
 <!-- ================= PESTAÑA DIAGNÓSTICO: DIAGNÓSTICO DEL CULTIVO ================= -->
@@ -803,7 +796,6 @@ La mayoría de enfermedades fúngicas se propagan por agua contaminada.
 <ul class="small mb-3">
 <li><strong>pH:</strong> 5.5-6.5 para disponibilidad óptima</li>
 <li><strong>EC:</strong> Ajustar según etapa fenológica</li>
-<li><strong>Oxígeno:</strong> >6 ppm mediante aireadores</li>
 <li><strong>Temp:</strong> 18-24°C para inhibir hongos</li>
 </ul>
 <h6 class="fw-bold"><i class="fas fa-broom me-1"></i>Higiene<span class="badge bg-success ms-2">Preventivo</span></h6>
@@ -3159,7 +3151,7 @@ onValue(sensoresRef, (snapshot) => {
         return;
     }
     connectionStatus.className = "alert alert-success text-center mb-0";
-    connectionStatus.innerHTML = "<i class='fas fa-check-circle me-2'></i>Conectado y recibiendo datos en tiempo real";
+    connectionStatus.innerHTML = "<i class='fas fa-check-circle me-2'></i>Conectado";
     function actualizarValor(elementId, valor, decimales = 2) {
         const elemento = document.getElementById(elementId);
         if (elemento && !isNaN(valor)) {
@@ -3173,7 +3165,7 @@ onValue(sensoresRef, (snapshot) => {
     }
     if (!isNaN(parseFloat(d.ph))) actualizarValor("phTop", parseFloat(d.ph), 2);
     if (!isNaN(parseFloat(d.ec))) actualizarValor("ecTop", parseFloat(d.ec), 2);
-    if (!isNaN(parseFloat(d.tds))) actualizarValor("tdsTop", parseFloat(d.tds));
+    if (!isNaN(parseFloat(d.tds))) actualizarValor("tdsTop", parseFloat(d.tds), 2);
     // Actualizar display del PPM actual en la sección de nutrientes
     if (!isNaN(parseFloat(d.tds))) {
         const displayElement = document.getElementById("ppmActualDashboard");
@@ -3336,5 +3328,12 @@ window.addEventListener('appinstalled', () => {
     }
 });
 </script>
+
+<!-- Botón Flotante para Instalar PWA -->
+<button id="btnInstalarPWA" class="btn-instalar-pwa" title="Instalar aplicación en tu dispositivo">
+    <i class="fas fa-cloud-download-alt"></i>
+    <span class="label-instalar">Instalar</span>
+</button>
+
 </body>
 </html>
