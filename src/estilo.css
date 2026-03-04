@@ -693,3 +693,72 @@ header h1 { font-size: 1.5rem; }
 .box .table thead th { font-size: 0.75rem; padding: 0.75rem 0.5rem; }
 .box .table tbody td { padding: 0.75rem 0.5rem; font-size: 0.9rem; }
 }
+
+/* ===== BOTÓN FLOTANTE PWA ===== */
+.btn-instalar-pwa {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--success-color) 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  font-size: 1.8rem;
+  animation: pulse-install 2s infinite;
+}
+
+.btn-instalar-pwa:hover {
+  transform: scale(1.15);
+  box-shadow: 0 12px 35px rgba(5, 150, 105, 0.6);
+}
+
+.btn-instalar-pwa:active {
+  transform: scale(0.95);
+}
+
+.label-instalar {
+  position: absolute;
+  bottom: -35px;
+  white-space: nowrap;
+  background: var(--primary-color);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn-instalar-pwa:hover .label-instalar {
+  opacity: 1;
+}
+
+@keyframes pulse-install {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 35px rgba(5, 150, 105, 0.7);
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-instalar-pwa {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+    bottom: 20px;
+    right: 20px;
+  }
+}

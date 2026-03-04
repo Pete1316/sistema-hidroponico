@@ -107,6 +107,105 @@
     .card-glass {
         @apply glass-card;
     }
+    
+    /* ===== ANIMACIÓN DE PULSO PARA ALERTAS PPM ===== */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+        }
+        50% {
+            opacity: 0.8;
+            box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+        }
+    }
+    
+    /* ===== NOTIFICACIONES ARRIBA-DERECHA ===== */
+    .notificacion {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        z-index: 9999;
+        max-width: 350px;
+        text-align: left;
+        animation: slideInRight 0.35s ease-out;
+        font-size: 15px;
+        font-weight: 500;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+    
+    .notificacion.exito {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        border-left: 5px solid #047857;
+    }
+    
+    .notificacion.advertencia {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+        border-left: 5px solid #b45309;
+    }
+    
+    .notificacion.error {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        border-left: 5px solid #991b1b;
+    }
+    
+    .notificacion.info {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        border-left: 5px solid #1e40af;
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+    }
+    
+    .notificacion.cerrar {
+        animation: slideOutRight 0.35s ease-out forwards;
+    }
+    
+    /* ===== OCULTAR SPINNER DE NUMBER INPUT ===== */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    
+    /* ===== BOTÓN AUTO PPM ACTIVO ===== */
+    #ppmAutoBtn.active {
+        background-color: #10b981 !important;
+        color: white !important;
+        border-color: #059669 !important;
+    }
 </style>
 </style>
 </head>
@@ -306,72 +405,95 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </div>
 
 <!-- CONTROLES ORGANIZADOS EN GRID -->
-<div class="row g-2 mb-4">
-<!-- Días -->
-<div class="col-6 col-md-3">
-<label for="diasTomate" class="form-label fw-bold small"><i class="fas fa-calendar-alt me-1"></i>Días</label>
-<div class="input-group input-group-sm">
-<input type="text" id="diasTomate" class="form-control" value="0" maxlength="3" inputmode="numeric" oninput="validarDias(this)" placeholder="0">
-<span class="input-group-text">/120</span>
-</div>
-</div>
+ 
+<div class="row justify-content-center g-3 mb-4">
 
-<!-- Etapa -->
-<div class="col-6 col-md-3">
-<label for="etapaSelectNutrientes" class="form-label fw-bold small"><i class="fas fa-leaf me-1"></i>Etapa</label>
-<select class="form-select form-select-sm" id="etapaSelectNutrientes" onchange="actualizarPpmRecomendada()">
-<option value="plantula">🌱 Semilla</option>
-<option value="vegetativa" selected>🌿 Vegetativa</option>
-<option value="floracion">🌸 Floración</option>
-<option value="produccion">🍅 Producción</option>
-</select>
-</div>
+<!-- Días + Etapa Unidos -->
+       <div class="col-auto">
+                    <small class="form-label d-block fw-bold mb-2 text-center" style="font-size: 0.85rem;">
+                        <i class="fas fa-calendar-alt me-1"></i>Días
+                    </small>
+                    <div class="input-group">
+                        <input type="text" 
+                               id="diasTomate" 
+                               class="form-control text-center" 
+                               value="21" 
+                               maxlength="3" 
+                               inputmode="numeric" 
+                               oninput="validarDias(this)" 
+                               placeholder="0" 
+                               style="width: 80px; font-weight: bold;">
+                    </div>
+                </div>
+            <div class="col-auto">
+                    <small class="form-label d-block fw-bold mb-2 text-center" style="font-size: 0.85rem;">
+                        <i class="fas fa-leaf me-1"></i>Etapa
+                    </small>
+                    <select class="form-select text-center" 
+                            id="etapaSelectNutrientes" 
+                            onchange="actualizarPpmRecomendada()"
+                            style="min-width: 190px; font-weight: 500;"
+                            disabled>
+                        <option value="plantula">🌱 Semilla</option>
+                        <option value="vegetativa" selected>🌿 Vegetativa</option>
+                        <option value="floracion">🌸 Floración</option>
+                        <option value="produccion">🍅 Producción</option>
+                    </select>
+            </div>
+            <div class="col-auto">
+                    <small class="form-label d-block fw-bold mb-2 text-center" style="font-size: 0.85rem;">
+                        <i class="fas fa-vial me-1"></i>Volumen
+                    </small>
+                    <div class="input-group">
+                        <input type="number" 
+                               class="form-control text-center" 
+                               id="volumeTanque" 
+                               min="1" 
+                               max="160" 
+                               value="100" 
+                               placeholder="100" 
+                               oninput="validarVolumen(this)" 
+                               style="width: 70px; font-weight: bold;">
+                        <span class="input-group-text">L</span>
+                    </div>
+            </div>
+                
+
 
 <!-- PPM con Switch -->
-<div class="col-6 col-md-3">
-<label for="ppmInput" class="form-label fw-bold small d-block mb-2"><i class="fas fa-droplet me-1"></i>PPM</label>
-<div class="d-flex gap-2 align-items-center">
-<input type="number" class="form-control form-control-sm" id="ppmInput" min="0" max="1500" value="600" step="10" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 85px;">
-<div class="d-flex align-items-center gap-1">
-<small class="text-muted" style="font-size: 0.7rem; white-space: nowrap;"></small>
-<div class="form-check form-switch" style="margin: 0; padding-left: 0;">
-<input class="form-check-input" type="checkbox" id="ppmAutoSwitch" onchange="togglePpmAuto();" style="cursor: pointer; width: 2.8em; height: 1.4em; margin: 0;">
+<div class="col-auto">
+<label for="ppmInput" class="form-label fw-bold"><i class="fas fa-droplet me-1"></i>PPM</label>
+<div class="input-group" style="max-width: 200px;">
+<input type="number" class="form-control" id="ppmInput" min="0" max="1200" value="600" step="1" oninput="validarPPM(this)" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 120px;">
+<button class="btn btn-outline-secondary" type="button" id="ppmAutoBtn" onclick="togglePpmAuto();" title="Modo automático" style="border-color: #dee2e6; white-space: nowrap;">
+<i class="fas fa-robot"></i> Auto
+</button>
 </div>
-</div>
-</div>
-<div class="d-flex flex-column gap-2 mt-2">
-<div class="d-flex align-items-center gap-2">
-<span class="badge bg-info text-white" style="padding: 6px 10px; font-size: 0.85rem; flex: 1; text-align: center;">
-📊 <span id="ppmActualDashboard">--</span> ppm
+<div class="mt-2" style="display: flex; gap: 8px;">
+<span class="badge bg-info text-white" style="padding: 8px 12px; font-size: 0.9rem; width: 90px; text-align: center;">
+<span id="ppmActualDashboard">--</span> ppm
 </span>
-<span class="badge bg-success text-white" id="ppmStatusBadge" style="display: none; padding: 6px 10px; font-size: 0.75rem;">🔄</span>
+<span class="badge bg-success text-white" id="ppmStatusBadge" style="display: none; padding: 8px 12px; font-size: 0.9rem; width: 100px; text-align: center;">Automático</span>
 </div>
 </div>
 </div>
 
-<!-- Volumen -->
-<div class="col-6 col-md-3">
-<label for="volumeTanque" class="form-label fw-bold small"><i class="fas fa-vial me-1"></i>Volumen</label>
-<div class="input-group input-group-sm">
-<input type="number" class="form-control" id="volumeTanque" min="1" max="10000" value="100" placeholder="100">
-<span class="input-group-text">L</span>
-</div>
-</div>
-</div>
+
+
 
 <!-- Botones de Acción -->
 <div class="row g-2 mb-3">
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-6">
 <button class="btn btn-primary btn-sm w-100" onclick="calcularCompleto()">
-<i class="fas fa-calculator me-1"></i>Calcular Todo
+<i class="fas fa-calculator me-1"></i>Calcular
 </button>
 </div>
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-6" style="display: none;">
 <button class="btn btn-danger btn-sm w-100" onclick="automatizarAjustePPM()" style="font-weight: 600;">
-<i class="fas fa-robot me-1"></i>⚙️ Automatizar Nutrientes
+<i class="fas fa-robot me-1"></i>⚙️ Calcular
 </button>
 </div>
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-6">
 <button class="btn btn-success btn-sm w-100" onclick="generarReporte()" id="btnGenerarReporte" style="opacity: 0.6;" disabled>
 <i class="fas fa-file-pdf me-1"></i>Generar PDF
 </button>
@@ -390,11 +512,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <small class="text-muted d-block">PPM Ideal</small>
 <strong style="color: #f59e0b;"><i class="fas fa-flask me-1"></i><span id="ppmRecomendada">400-800</span> ppm</strong>
 </div>
-<div class="vr"></div>
-<div>
-<small class="text-muted d-block">Sensor EC</small>
-<strong style="color: #10b981;"><i class="fas fa-database me-1"></i><span id="ppmActualDashboard">--</span> ppm</strong>
-</div>
+
 </div>
 </div>
 
@@ -403,7 +521,12 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation">
 <button class="nav-link active" id="diag-tab" data-bs-toggle="tab" data-bs-target="#diag-content" type="button" role="tab">
-<i class="fas fa-stethoscope me-1"></i>Diagnóstico
+<i class="fas  me-1"></i>Diagnóstico
+</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="automatizacion-tab" data-bs-toggle="tab" data-bs-target="#automatizacion-content" type="button" role="tab">
+<i class="fas  me-1"></i>Nutrientes
 </button>
 </li>
 <li class="nav-item" role="presentation" style="display: none;">
@@ -413,7 +536,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 </li>
 <li class="nav-item" role="presentation">
 <button class="nav-link" id="dosis-tab" data-bs-toggle="tab" data-bs-target="#dosis-content" type="button" role="tab">
-<i class="fas fa-vial me-1"></i>Dosis
+<i class="fas  me-1"></i>Formulación
 </button>
 </li>
 </ul>
@@ -424,12 +547,22 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <div id="diagnostico" role="region" aria-live="polite">
 <div class="text-center text-muted py-5">
 <i class="fas fa-satellite-dish fa-2x mb-3"></i>
-<p>Ingrese los días y haga clic en "Calcular Todo"</p>
+<p>Ingrese los días y haga clic en "Calcular"</p>
 </div>
 </div>
 </div>
 
-<!-- TAB 2: NUTRIENTES (Macro y Micro) -->
+<!-- TAB 2: AUTOMATIZACIÓN -->
+<div class="tab-pane fade" id="automatizacion-content" role="tabpanel" aria-labelledby="automatizacion-tab">
+<div id="resultadoAutomatizacion" style="padding: 20px;">
+<div class="text-center text-muted py-5">
+<i class="fas fa-robot fa-2x mb-3"></i>
+<p>Haga clic en "Calcular" para ver las recomendaciones aquí</p>
+</div>
+</div>
+</div>
+
+<!-- TAB 3: NUTRIENTES (Macro y Micro) -->
 <div class="tab-pane fade" id="nutrientes-content" role="tabpanel" aria-labelledby="nutrientes-tab" style="display: none;">
 <div class="row g-2">
 <div class="col-lg-6">
@@ -474,7 +607,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <div id="resultadoVolumen" class="mt-2">
 <div class="text-center text-muted py-4">
 <i class="fas fa-droplet fa-2x mb-3"></i>
-<p>Ingrese el volumen y haga clic en "Calcular Todo"</p>
+<p>Ingrese el volumen y haga clic en "Calcular"</p>
 </div>
 </div>
 </div>
@@ -1242,7 +1375,7 @@ function obtenerPPMDashboard() {
     const ppmActual = tdsElement ? parseFloat(tdsElement.textContent) : null;
     
     if (!ppmActual || isNaN(ppmActual)) {
-        alert("⚠️ No hay datos de TDS disponibles en el Dashboard. Verifique que los sensores estén conectados.");
+        mostrarNotificacion('⚠️ No hay datos de TDS disponibles. Verifique que los sensores estén conectados.', 'advertencia');
         return;
     }
     
@@ -1271,6 +1404,35 @@ function actualizarPPMActualDisplay() {
     if (tdsElement && displayElement) {
         const ppmActual = tdsElement.textContent;
         displayElement.textContent = ppmActual;
+        
+        // Aplicar color basado en valor de PPM
+        const valor = parseFloat(ppmActual);
+        const badgeContainer = displayElement.parentElement;
+        
+        if (!isNaN(valor)) {
+            // Cambiar color del badge según rango
+            if (valor > 1200) {
+                // Rojo crítico para > 1200 ppm
+                badgeContainer.classList.remove('bg-info', 'bg-success', 'bg-warning');
+                badgeContainer.classList.add('bg-danger');
+                badgeContainer.style.animation = 'pulse 1s infinite';
+            } else if (valor > 800) {
+                // Naranja para rango de floración/producción bajo
+                badgeContainer.classList.remove('bg-danger', 'bg-info', 'bg-success');
+                badgeContainer.classList.add('bg-warning');
+                badgeContainer.style.animation = 'none';
+            } else if (valor > 400) {
+                // Verde para rango vegetativo
+                badgeContainer.classList.remove('bg-danger', 'bg-warning', 'bg-info');
+                badgeContainer.classList.add('bg-success');
+                badgeContainer.style.animation = 'none';
+            } else {
+                // Azul para rango bajo
+                badgeContainer.classList.remove('bg-danger', 'bg-warning', 'bg-success');
+                badgeContainer.classList.add('bg-info');
+                badgeContainer.style.animation = 'none';
+            }
+        }
     }
 }
 
@@ -1325,7 +1487,7 @@ function calcularParaVolumen() {
     const datos = formulasNutrientes[etapa];
     
     if (volumen <= 0) {
-        alert("⚠️ Ingrese un volumen válido");
+        mostrarNotificacion('⚠️ Ingrese un volumen válido', 'advertencia');
         return;
     }
     
@@ -1338,28 +1500,79 @@ function calcularParaVolumen() {
         microElementos: {}
     };
     
-    let resultado = `<div class="alert alert-success"><strong>✓ Cálculo para ${volumen} litros con ${ppm} ppm:</strong><br><br>`;
+    let resultado = `
+    <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); color: #374151;">
+        <div class="card-body">
+            <h5 class="card-title mb-2"><i class="fas fa-calculator me-2" style="color: #6b7280;"></i>Dosis para ${volumen} L con ${ppm} ppm</h5>
+            <p class="card-text mb-0" style="color: #6b7280;"><small>Cálculo automático de nutrientes necesarios</small></p>
+        </div>
+    </div>
     
-    resultado += `<h6 class="fw-bold mt-3 mb-2">📦 Macroelementos (dosificar en secuencia):</h6>`;
-    resultado += `<ul class="small">`;
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm" style="background: #f9fafb; border-left: 4px solid #d1d5db;">
+                <div class="card-body" style="color: #374151;">
+                    <h6 class="card-title fw-bold mb-3" style="color: #4b5563;"><i class="fas fa-leaf me-2" style="color: #9ca3af;"></i>Macroelementos</h6>
+                    <small style="color: #6b7280;">Dosificar en orden (N > P > K > Ca > Mg > S)</small>
+                    <div class="mt-3">`;
     
     for (const [elemento, info] of Object.entries(datos.macroElementos)) {
         const dosisTotal = ((info.ratio || 0) * ppm / 600 * volumen / 1000).toFixed(2); // en gramos
         datosNutrientesCalculados.macroElementos[elemento] = { dosis: dosisTotal, fertilizante: info.fertilizante };
-        resultado += `<li><strong>${elemento}:</strong> ${dosisTotal} g para ${volumen} L</li>`;
+        resultado += `
+        <div class="d-flex justify-content-between align-items-center mb-2 pb-2" style="border-bottom: 1px solid #e5e7eb;">
+            <div>
+                <strong style="font-size: 15px; color: #374151;">${elemento}</strong><br>
+                <small style="color: #9ca3af;">${info.fertilizante}</small>
+            </div>
+            <div class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 13px; padding: 8px 12px; border: 1px solid #e5e7eb;">${dosisTotal} g</div>
+        </div>`;
     }
     
-    resultado += `</ul><h6 class="fw-bold mt-3 mb-2">💊 Microelementos (agregar como mezcla):</h6>`;
-    resultado += `<ul class="small">`;
+    resultado += `
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm" style="background: #f9fafb; border-left: 4px solid #d1d5db;">
+                <div class="card-body" style="color: #374151;">
+                    <h6 class="card-title fw-bold mb-3" style="color: #4b5563;"><i class="fas fa-droplet me-2" style="color: #9ca3af;"></i>Microelementos</h6>
+                    <small style="color: #6b7280;">Agregar como mezcla completa</small>
+                    <div class="mt-3">`;
     
     for (const [elemento, info] of Object.entries(datos.microElementos)) {
         const dosisMedia = parseFloat(info.rango.split('-')[0]) + (parseFloat(info.rango.split('-')[1]) - parseFloat(info.rango.split('-')[0])) / 2;
         const dosis = (dosisMedia * volumen / 1000).toFixed(3); // en gramos para micronutrientes
         datosNutrientesCalculados.microElementos[elemento] = { dosis: dosis, source: info.source };
-        resultado += `<li><strong>${elemento}:</strong> ${dosis} g (${info.source})</li>`;
+        resultado += `
+        <div class="d-flex justify-content-between align-items-center mb-2 pb-2" style="border-bottom: 1px solid #e5e7eb;">
+            <div>
+                <strong style="font-size: 15px; color: #374151;">${elemento}</strong><br>
+                <small style="color: #9ca3af;">${info.source}</small>
+            </div>
+            <div class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 13px; padding: 8px 12px; border: 1px solid #e5e7eb;">${dosis} g</div>
+        </div>`;
     }
     
-    resultado += `</ul></div>`;
+    resultado += `
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="background: #f9fafb; border-left: 4px solid #d1d5db; padding: 16px; border-radius: 8px;">
+        <div style="color: #374151; font-weight: 500;"><i class="fas fa-lightbulb me-2" style="color: #9ca3af;"></i>💡 Instrucciones:</div>
+        <ul class="mb-0 mt-2" style="color: #6b7280; font-size: 14px;">
+            <li>Disolver macroelementos en agua en secuencia: <strong>N → P → K → Ca → Mg → S</strong></li>
+            <li>Esperar 10 minutos entre cada adición</li>
+            <li>Mezclar bien y medir EC/PPM</li>
+            <li>Agregar microelementos como mezcla única</li>
+        </ul>
+    </div>`;
+    
     document.getElementById("resultadoVolumen").innerHTML = resultado;
 }
 
@@ -1378,13 +1591,35 @@ function mostrarAlertaPPM(ppmActual, minimo, maximo, etapa) {
     alertaPPMYaMostrada = true;
     
     // Construir mensaje personalizado
-    const mensaje = `⚠️ PPM fuera de rango recomendado: ${minimo}-${maximo} ppm para etapa ${etapa}\n\nRecomendación: Ajuste el valor de PPM dentro del rango recomendado para obtener mejores resultados en el cálculo de nutrientes.`;
+    let mensaje = `⚠️ PPM fuera de rango recomendado: ${minimo}-${maximo} ppm para etapa ${etapa}\n\n`;
+    
+    const ppmNum = parseFloat(ppmActual);
+    
+    // Mensaje específico si supera 1200 ppm (máximo recomendado para tomate)
+    if (ppmNum > 1200) {
+        mensaje += `🚨 ALERTA CRÍTICA: PPM ${ppmNum} ppm EXCEDE significativamente el máximo seguro (1200 ppm).\n\n`;
+        mensaje += `⚡ ACCIÓN INMEDIATA REQUERIDA:\n`;
+        mensaje += `1. Cambiar agua del tanque (25-30%)\n`;
+        mensaje += `2. Usar agua destilada o filtrada\n`;
+        mensaje += `3. Revisar sensores (pueden estar descalibrados)\n`;
+        mensaje += `4. Monitorar cada 1-2 horas\n\n`;
+        mensaje += `Si sigue >1500ppm, considere revisar:\n`;
+        mensaje += `- Acumulación de sales\n`;
+        mensaje += `- Evaporación (aumenta concentración)\n`;
+        mensaje += `- Fertilización excesiva anterior\n`;
+    } else if (ppmNum > maximo) {
+        mensaje += `⚠️ PPM ${ppmNum} ppm está ALTO para esta etapa.\n\n`;
+        mensaje += `Recomendación: Cambiar 15-20% del agua del tanque para reducir nutrientes.\n`;
+    } else {
+        mensaje += `PPM ${ppmNum} ppm está BAJO para esta etapa.\n\n`;
+        mensaje += `Recomendación: Agregar nutrientes siguiendo las dosificaciones recomendadas.\n`;
+    }
     
     // Mostrar alert simple del navegador (aparece una sola vez)
-    alert(mensaje);
+    mostrarNotificacion(mensaje, 'advertencia', 5000);
     
     // Log en consola
-    console.warn(`Alerta PPM: ${minimo}-${maximo} ppm (Actual: ${ppmActual})`);
+    console.warn(`Alerta PPM: ${minimo}-${maximo} ppm (Actual: ${ppmActual} ppm)`);
 }
 
 function getNombreElemento(el) {
@@ -1452,6 +1687,12 @@ document.addEventListener("DOMContentLoaded", function() {
         ppmInput.style.opacity = '1';
         ppmInput.style.backgroundColor = '#ffffff';
     }
+    
+    // ===== ACTIVAR MODO AUTOMÁTICO PPM AL INICIO =====
+    // Activar automáticamente el modo automático de PPM
+    setTimeout(() => {
+        togglePpmAuto();
+    }, 500);
     
     // ===== OPTIMIZACIÓN DE PESTAÑAS: Demorar renderizado =====
     // Esto mejora significativamente el tiempo de carga inicial
@@ -1745,7 +1986,7 @@ let datosReporte = {};
 function generarReporte() {
     // Verificar que existan datos reales de automatización
     if (!datosAutomatizacionActual) {
-        alert('⚠️ IMPORTANTE:\n\nDebe ejecutar primero la AUTOMATIZACIÓN DE NUTRIENTES antes de generar el PDF.\n\nHaga clic en el botón "Ejecutar Automatización" en la sección de CONTROL DE NUTRIENTES.');
+        mostrarNotificacion('⚠️ IMPORTANTE: Debe ejecutar primero la AUTOMATIZACIÓN DE NUTRIENTES antes de generar el PDF. Haga clic en "Ejecutar Automatización".', 'advertencia', 5000);
         return;
     }
     
@@ -1803,7 +2044,7 @@ function confirmarYDescargarPDF() {
         document.getElementById('observacionesTecnicas').classList.remove('is-invalid');
     }
     if (errores.length > 0) {
-        alert('⚠️ Por favor corrija los siguientes campos:\n' + errores.join('\n'));
+        mostrarNotificacion('⚠️ Por favor corrija los siguientes campos: ' + errores.join(', '), 'error', 5000);
         return;
     }
     datosReporte = { nombre, semestre, paralelo, observaciones };
@@ -1813,7 +2054,7 @@ function confirmarYDescargarPDF() {
 function generarPDFConDatos() {
     // Verificar que existan datos reales de automatización
     if (!datosAutomatizacionActual) {
-        alert('⚠️ Debe ejecutar primero la AUTOMATIZACIÓN DE NUTRIENTES para generar el PDF con datos reales.');
+        mostrarNotificacion('⚠️ Debe ejecutar la AUTOMATIZACIÓN DE NUTRIENTES para generar el PDF con datos reales.', 'advertencia', 5000);
         return;
     }
     
@@ -1831,11 +2072,11 @@ function generarPDFConDatos() {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
-    doc.text("MONITOREO HIDROPONICO", 105, 18, { align: "center" });
+    doc.text("DIAGNÓSTICO", 105, 18, { align: "center" });
     // Subtítulo
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text("Reporte Tecnico del Cultivo de Tomate", 105, 28, { align: "center" });
+    doc.text("Reporte tecnico del cultivo de tomate", 105, 28, { align: "center" });
     // Línea decorativa verde
     doc.setFillColor(16, 185, 129);
     doc.rect(20, 33, 170, 2, 'F');
@@ -1881,7 +2122,7 @@ function generarPDFConDatos() {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(31, 41, 55);
     const infoCultivo = [
-        { label: "Cultivo:", valor: "Tomate Hidroponico" },
+        { label: "Cultivo:", valor: "Tomate" },
         { label: "Dias desde siembra:", valor: dias + " dias" },
         { label: "Etapa actual:", valor: etapa },
         { label: "Ciclo esperado:", valor: "120 dias" }
@@ -2046,11 +2287,11 @@ function generarPDFConDatos() {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
-    doc.text("Preparación de Solución Nutritiva", 105, 18, { align: "center" });
+    doc.text("FORMULACIÓN", 105, 18, { align: "center" });
     
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text("Dosis de Nutrientes para el Cultivo", 105, 28, { align: "center" });
+    doc.text("Dosis de nutrientes para el cultivo", 105, 28, { align: "center" });
     
     // Línea decorativa verde
     doc.setFillColor(16, 185, 129);
@@ -2169,11 +2410,11 @@ function generarPDFConDatos() {
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(24);
         doc.setFont("helvetica", "bold");
-        doc.text("RESULTADO DE AUTOMATIZACIÓN", 105, 18, { align: "center" });
+        doc.text("NUTRIENTES IDEALES", 105, 18, { align: "center" });
         
         doc.setFontSize(12);
         doc.setFont("helvetica", "normal");
-        doc.text("Recomendaciones de Ajuste de Nutrientes", 105, 28, { align: "center" });
+        doc.text("Recomendaciones de ajuste de nutrientes", 105, 28, { align: "center" });
         
         // Línea decorativa verde
         doc.setFillColor(16, 185, 129);
@@ -2615,6 +2856,34 @@ function crearTabla(id, columnas, filas){
     </table>
     </div>`;
 }
+
+// ===== FUNCIÓN PARA MOSTRAR NOTIFICACIONES CENTRADAS =====
+function mostrarNotificacion(mensaje, tipo = 'info', duracion = 3000) {
+    // Crear elemento de notificación
+    const notif = document.createElement('div');
+    notif.className = `notificacion ${tipo}`;
+    notif.textContent = mensaje;
+    
+    // Agregar al body
+    document.body.appendChild(notif);
+    
+    // Auto-cerrar después de la duración especificada
+    setTimeout(() => {
+        notif.classList.add('cerrar');
+        setTimeout(() => {
+            notif.remove();
+        }, 300);
+    }, duracion);
+    
+    // Permitir cerrar con clic
+    notif.addEventListener('click', () => {
+        notif.classList.add('cerrar');
+        setTimeout(() => {
+            notif.remove();
+        }, 300);
+    });
+}
+
 function getSensorName(id) {
     const names = {
     "nivel": "Nivel de Agua",
@@ -2642,6 +2911,75 @@ function validarDias(input) {
     sincronizarEtapaNutrientes(valor);
 }
 
+function validarPPM(input) {
+    // Solo permitir números positivos
+    input.value = input.value.replace(/[^\d]/g, '');
+    
+    // Limitar a máximo 4 dígitos (máx 1200)
+    if (input.value.length > 4) {
+        input.value = input.value.substring(0, 4);
+    }
+    
+    let valor = input.value;
+    
+    // Si está vacío, no hacer nada
+    if (valor === '') {
+        return;
+    }
+    
+    // Convertir a número
+    let numValor = parseInt(valor);
+    
+    // Si es negativo o cero, vaciar
+    if (numValor <= 0) {
+        input.value = '';
+        return;
+    }
+    
+    // Limitar a máximo 1200 ppm
+    if (numValor > 1200) {
+        input.value = 1200;
+        console.warn('⚠️ PPM limitado a máximo 1200 ppm');
+    } else {
+        input.value = numValor;
+    }
+    
+    // Actualizar el badge del dashboard
+    const badgeElement = document.getElementById('ppmActualDashboard');
+    if (badgeElement) {
+        badgeElement.textContent = numValor;
+    }
+}
+
+function validarVolumen(input) {
+    // Solo permitir números positivos
+    input.value = input.value.replace(/[^\d]/g, '');
+    
+    let valor = input.value;
+    
+    // Si está vacío, no hacer nada
+    if (valor === '') {
+        return;
+    }
+    
+    // Convertir a número
+    let numValor = parseInt(valor);
+    
+    // Si es negativo o cero, establecer a 1
+    if (numValor <= 0) {
+        input.value = 1;
+        return;
+    }
+    
+    // Limitar a máximo 100 L
+    if (numValor > 100) {
+        input.value = 100;
+        console.warn('⚠️ Volumen limitado a máximo 100 L');
+    } else {
+        input.value = numValor;
+    }
+}
+
 function sincronizarEtapaNutrientes(dias) {
     let etapaCorrespondiente;
     
@@ -2665,13 +3003,18 @@ function sincronizarEtapaNutrientes(dias) {
 
 // ===== FUNCIÓN PARA TOGGLE PPM AUTOMÁTICO =====
 function togglePpmAuto() {
-    const toggle = document.getElementById('ppmAutoSwitch');
+    const btn = document.getElementById('ppmAutoBtn');
     const ppmInput = document.getElementById('ppmInput');
     const statusBadge = document.getElementById('ppmStatusBadge');
     
-    if (toggle.checked) {
+    // Alternar estado del botón
+    const isActive = btn.classList.toggle('active');
+    
+    if (isActive) {
         // ACTIVAR MODO AUTOMÁTICO
-        modoAutomaticoActivo = true;  // Activar bandera de modo automático
+        btn.classList.remove('btn-outline-secondary');
+        btn.classList.add('btn-success');
+        modoAutomaticoActivo = true;
         ppmInput.disabled = true;
         ppmInput.style.opacity = '0.7';
         ppmInput.style.backgroundColor = '#f3f4f6';
@@ -2694,7 +3037,9 @@ function togglePpmAuto() {
         console.log('✓ PPM en modo Automático (actualizando cada 2 segundos - ALERTAS DESACTIVADAS)');
     } else {
         // DESACTIVAR MODO AUTOMÁTICO
-        modoAutomaticoActivo = false;  // Desactivar bandera de modo automático
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-outline-secondary');
+        modoAutomaticoActivo = false;
         ppmInput.disabled = false;
         ppmInput.style.opacity = '1';
         ppmInput.style.backgroundColor = '#ffffff';
@@ -2768,9 +3113,8 @@ function calcularCompleto() {
         btnPDF.style.cursor = 'pointer';
     }
     
-    // Cambiar a la pestaña de nutrientes para mostrar resultados
-    const nutrientesTab = new bootstrap.Tab(document.getElementById('nutrientes-tab'));
-    nutrientesTab.show();
+    // Ejecutar automáticamente Automatizar Nutrientes
+    automatizarAjustePPM();
 }
 
 const contenido = document.getElementById("contenido");
@@ -3013,7 +3357,7 @@ function automatizarAjustePPM() {
     const datos = formulasNutrientes[etapa];
     
     if (ppmActual === 0 || isNaN(ppmActual)) {
-        alert("⚠️ No hay datos de PPM disponibles. Conecte los sensores primero.");
+        mostrarNotificacion('⚠️ No hay datos de PPM disponibles. Conecte los sensores primero.', 'advertencia');
         return;
     }
     
@@ -3086,7 +3430,7 @@ function automatizarAjustePPM() {
         recomendacion.detalles.push(`<strong style="color: #059669;">PPM esperado después:</strong> ${ppmIdeal.toFixed(0)} ppm`);
         
         recomendacion.detalles.push(`<br><strong style="color: #ea580c;">⚡ INSTRUCCIONES:</strong>`);
-        recomendacion.detalles.push(`1. Apagar aireadores y sifones`);
+        recomendacion.detalles.push(`1. Desconéctela del suministro eléctrico`);
         recomendacion.detalles.push(`2. Drenar exactamente ${volumenCambiar} L del tanque`);
         recomendacion.detalles.push(`3. Llenar con agua fresca (sin nutrientes agregados)`);
         recomendacion.detalles.push(`4. A los 5 minutos, medir EC/PPM para verificar`);
@@ -3111,35 +3455,6 @@ function automatizarAjustePPM() {
 }
 
 function mostrarResultadoAutomatizacion(recomendacion) {
-    // Crear modal dinámico si no existe
-    let modal = document.getElementById('modalAutomatizacion');
-    if (!modal) {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <div class="modal fade" id="modalAutomatizacion" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content" style="border-radius: 10px; border: 2px solid var(--primary-color);">
-                        <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--success-color)); color: white;">
-                            <h5 class="modal-title fw-bold">🔧 Resultado de Automatización</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body" id="modalBody" style="max-height: 70vh; overflow-y: auto;">
-                            <!-- Contenido dinámico -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-success" onclick="copiarRecomendacion()">
-                                <i class="fas fa-copy me-2"></i>Copiar Recomendación
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(div);
-        modal = document.getElementById('modalAutomatizacion');
-    }
-    
     // Guardar datos de automatización globalmente para el PDF
     datosAutomatizacionActual = {
         estado: recomendacion.estado,
@@ -3178,22 +3493,32 @@ function mostrarResultadoAutomatizacion(recomendacion) {
         `;
     }
     
-    document.getElementById('modalBody').innerHTML = contenido;
+    // Agregar botón de copiar
+    contenido += `
+        <div class="mt-3">
+            <button class="btn btn-success btn-sm w-100" onclick="copiarRecomendacion()">
+                <i class="fas fa-copy me-2"></i>Copiar Recomendación
+            </button>
+        </div>
+    `;
+    
+    // Mostrar en la pestaña
+    document.getElementById('resultadoAutomatizacion').innerHTML = contenido;
+    
+    // Cambiar a la pestaña de automatización
+    const automatizacionTab = new bootstrap.Tab(document.getElementById('automatizacion-tab'));
+    automatizacionTab.show();
     
     // Guardar para copiar
     window.textoRecomendacion = recomendacion.detalles.join('\n');
-    
-    // Mostrar modal
-    const bootstrapModal = new bootstrap.Modal(modal);
-    bootstrapModal.show();
 }
 
 function copiarRecomendacion() {
     if (window.textoRecomendacion) {
         navigator.clipboard.writeText(window.textoRecomendacion).then(() => {
-            alert('✓ Recomendación copiada al portapapeles');
+            mostrarNotificacion('✓ Recomendación copiada al portapapeles', 'exito');
         }).catch(() => {
-            alert('Error al copiar. Intente de nuevo.');
+            mostrarNotificacion('Error al copiar. Intente de nuevo.', 'error');
         });
     }
 }
