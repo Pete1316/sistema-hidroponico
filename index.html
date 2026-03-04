@@ -16,6 +16,26 @@
 <title>Monitoreo Hidropónico - Sensores en Tiempo Real</title>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'hidro-green': '#059669',
+                    'hidro-blue': '#0891b2',
+                    'hidro-teal': '#0284c7',
+                    'hidro-orange': '#f59e0b',
+                    'hidro-indigo': '#6366f1'
+                },
+                backdropBlur: {
+                    'glass': '10px'
+                }
+            }
+        }
+    }
+</script>
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <!-- Google Fonts -->
@@ -30,58 +50,52 @@
     .navbar { padding-top: max(10px, env(safe-area-inset-top)); }
     .container { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
     
-    /* Botón Flotante PWA - Instalador */
-    .btn-instalar-pwa {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #059669 0%, #0891b2 100%);
-        border: none;
-        color: white;
-        font-size: 28px;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
-        transition: all 0.3s ease;
-        display: none;
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+    /* ===== GLASSMORPHISM CON TAILWIND ===== */
+    .glass {
+        @apply bg-white/70 backdrop-blur-glass border border-white/20 rounded-xl shadow-lg;
     }
     
-    .btn-instalar-pwa:hover {
-        transform: scale(1.15);
-        box-shadow: 0 12px 35px rgba(5, 150, 105, 0.7);
+    .glass-dark {
+        @apply bg-hidro-green/10 backdrop-blur-glass border border-hidro-green/20 rounded-xl shadow-lg;
     }
     
-    .btn-instalar-pwa:active {
-        transform: scale(0.95);
+    .glass-card {
+        @apply bg-white/75 backdrop-blur-glass border border-white/20 rounded-lg shadow-md hover:shadow-lg transition-all duration-300;
     }
     
-    .btn-instalar-pwa i {
-        font-size: 30px;
+    /* Transiciones suaves */
+    .transition-glass {
+        @apply transition-all duration-300 ease-in-out;
     }
     
-    .label-instalar {
-        font-size: 10px;
-        margin-top: 2px;
-        text-align: center;
+    /* Gradientes Tailwind */
+    .gradient-hidro {
+        @apply bg-gradient-to-r from-hidro-green to-hidro-blue;
     }
     
-    @media (max-width: 576px) {
-        .btn-instalar-pwa {
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-        }
-        .btn-instalar-pwa i {
-            font-size: 24px;
-        }
+    .gradient-hidro-subtle {
+        @apply bg-gradient-to-br from-hidro-green/10 to-hidro-blue/10;
     }
+    
+    /* Efecto hover moderno */
+    .hover-lift {
+        @apply hover:shadow-2xl hover:-translate-y-1 transition-all duration-300;
+    }
+    
+    /* Botones con glassmorphism */
+    .btn-glass {
+        @apply bg-hidro-green/80 backdrop-blur-glass border border-white/20 text-white font-medium rounded-lg hover:bg-hidro-green shadow-md transition-all duration-300;
+    }
+    
+    .btn-glass:hover {
+        @apply shadow-lg -translate-y-0.5;
+    }
+    
+    /* Cards mejoradas */
+    .card-glass {
+        @apply glass-card;
+    }
+</style>
 </style>
 </head>
 <body>
@@ -1783,8 +1797,8 @@ function generarPDFConDatos() {
     const dias = parseInt(document.getElementById("diasTomate")?.value) || 0;
     const etapa = document.getElementById("etapaActual")?.textContent || "Vegetativa";
     // ===== HEADER ELEGANTE =====
-    // Fondo verde hidropónico
-    doc.setFillColor(5, 150, 105);
+    // Fondo rojo tomate
+    doc.setFillColor(220, 38, 38);
     doc.rect(0, 0, 210, 50, 'F');
     // Título principal
     doc.setTextColor(255, 255, 255);
@@ -1855,11 +1869,11 @@ function generarPDFConDatos() {
     // Observaciones si existen
     if (datosReporte.observaciones && datosReporte.observaciones.length > 0) {
         yPos += 4;
-        doc.setFillColor(209, 250, 229);
+        doc.setFillColor(254, 243, 224);
         doc.rect(15, yPos - 5, 180, 6, 'F');
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(5, 150, 105);
+        doc.setTextColor(217, 119, 6);
         doc.text(">> OBSERVACIONES TECNICAS", 20, yPos);
         yPos += 8;
         doc.setFontSize(9);
@@ -1883,11 +1897,11 @@ function generarPDFConDatos() {
         rangosIdeales = { ph: [5.8, 6.5], ec: [2.0, 3.0], tds: [800, 1200], waterTemp: [18, 24], dhtTemp: [22, 28], hum: [50, 65] };
         infoEtapa = { nombre: "Floracion/Produccion", desc: "Flores y fructificacion" };
     }
-    doc.setFillColor(209, 250, 229);
+    doc.setFillColor(255, 237, 213);
     doc.rect(15, yPos - 5, 180, 6, 'F');
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(5, 150, 105);
+    doc.setTextColor(223, 107, 18);
     doc.text(">> RANGOS IDEALES - ETAPA: " + infoEtapa.nombre, 20, yPos);
     yPos += 6;
     doc.setFontSize(9);
@@ -1944,7 +1958,7 @@ function generarPDFConDatos() {
         }),
         theme: 'striped',
         headStyles: {
-            fillColor: [5, 150, 105],
+            fillColor: [220, 38, 38],
             textColor: [255, 255, 255],
             fontSize: 10,
             fontStyle: 'bold'
@@ -1967,11 +1981,11 @@ function generarPDFConDatos() {
         return estado.includes("BAJO") || estado.includes("ALTO") || estado.includes("RELLENAR");
     });
     if (tieneAlertas) {
-        doc.setFillColor(209, 250, 229);
+        doc.setFillColor(254, 243, 224);
         doc.rect(15, yPos - 5, 180, 6, 'F');
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(5, 150, 105);
+        doc.setTextColor(217, 119, 6);
         doc.text(">> ACCIONES RECOMENDADAS", 20, yPos);
         yPos += 8;
         doc.setFontSize(9);
@@ -1999,7 +2013,7 @@ function generarPDFConDatos() {
     doc.addPage();
     
     // ===== HEADER CONSISTENTE =====
-    doc.setFillColor(5, 150, 105);
+    doc.setFillColor(220, 38, 38);
     doc.rect(0, 0, 210, 50, 'F');
     
     doc.setTextColor(255, 255, 255);
@@ -2011,8 +2025,8 @@ function generarPDFConDatos() {
     doc.setFont("helvetica", "normal");
     doc.text("Dosis de Nutrientes para el Cultivo", 105, 28, { align: "center" });
     
-    // Línea decorativa azul
-    doc.setFillColor(8, 145, 178);
+    // Línea decorativa verde
+    doc.setFillColor(16, 185, 129);
     doc.rect(20, 33, 170, 2, 'F');
     
     // Fecha y hora
@@ -2023,11 +2037,11 @@ function generarPDFConDatos() {
     doc.setTextColor(31, 41, 55);
     
     if (datosNutrientesCalculados) {
-        doc.setFillColor(209, 250, 229);
+        doc.setFillColor(219, 234, 254);
         doc.rect(15, yPos - 5, 180, 6, 'F');
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(5, 150, 105);
+        doc.setTextColor(7, 89, 133);
         doc.text(">> DOSIS DE NUTRIENTES - VOLUMEN: " + datosNutrientesCalculados.volumen + " L", 20, yPos);
         yPos += 8;
         
@@ -2042,7 +2056,7 @@ function generarPDFConDatos() {
         
         // Tabla de macroelementos
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(8, 145, 178);
+        doc.setTextColor(217, 119, 6);
         doc.text("Macroelementos:", 20, yPos);
         yPos += 4;
         
@@ -2061,8 +2075,8 @@ function generarPDFConDatos() {
             body: macroTableData,
             theme: 'striped',
             headStyles: {
-                fillColor: [5, 150, 105],
-                textColor: [255, 255, 255],
+                fillColor: [246, 191, 38],
+                textColor: [0, 0, 0],
                 fontSize: 9,
                 fontStyle: 'bold'
             },
@@ -2079,7 +2093,7 @@ function generarPDFConDatos() {
         
         // Tabla de microelementos
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(8, 145, 178);
+        doc.setTextColor(102, 51, 153);
         doc.text("Microelementos:", 20, yPos);
         yPos += 4;
         
@@ -2297,11 +2311,11 @@ function generarPDFConDatos() {
                 yPosAuto = 20;
             }
             
-            doc.setFillColor(209, 250, 229);
+            doc.setFillColor(255, 237, 213);
             doc.rect(15, yPosAuto - 5, 180, 6, 'F');
             doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(8, 145, 178);
+            doc.setTextColor(217, 119, 6);
             doc.text(">> MACROELEMENTOS A AGREGAR", 20, yPosAuto);
             yPosAuto += 8;
             
@@ -2422,11 +2436,11 @@ function generarPDFConDatos() {
                 yPosAuto = 20;
             }
             
-            doc.setFillColor(219, 234, 254);
+            doc.setFillColor(254, 226, 226);
             doc.rect(15, yPosAuto - 5, 180, 6, 'F');
             doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(8, 145, 178);
+            doc.setTextColor(127, 29, 29);
             doc.text(">> CAMBIO DE AGUA REQUERIDO", 20, yPosAuto);
             yPosAuto += 8;
             
@@ -2468,11 +2482,11 @@ function generarPDFConDatos() {
                 yPosAuto = 20;
             }
             
-            doc.setFillColor(209, 250, 229);
+            doc.setFillColor(255, 247, 237);
             doc.rect(15, yPosAuto - 5, 180, 6, 'F');
             doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(8, 145, 178);
+            doc.setTextColor(217, 119, 6);
             doc.text(">> INSTRUCCIONES PASO A PASO", 20, yPosAuto);
             yPosAuto += 8;
             
@@ -2511,11 +2525,11 @@ function generarPDFConDatos() {
             }
             
             yPosAuto += 5;
-            doc.setFillColor(219, 234, 254);
+            doc.setFillColor(254, 243, 224);
             doc.rect(15, yPosAuto - 5, 180, 6, 'F');
             doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(8, 145, 178);
+            doc.setTextColor(217, 119, 6);
             doc.text(">> ADVERTENCIA IMPORTANTE", 20, yPosAuto);
             yPosAuto += 8;
             
@@ -3383,7 +3397,7 @@ window.addEventListener('appinstalled', () => {
 </script>
 
 <!-- Botón Flotante para Instalar PWA -->
-<button id="btnInstalarPWA" class="btn-instalar-pwa" style="display: none;" title="Instalar aplicación en tu dispositivo">
+<button id="btnInstalarPWA" class="btn-instalar-pwa" title="Instalar aplicación en tu dispositivo">
     <i class="fas fa-cloud-download-alt"></i>
     <span class="label-instalar">Instalar</span>
 </button>
