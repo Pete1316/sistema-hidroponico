@@ -3165,7 +3165,7 @@ onValue(sensoresRef, (snapshot) => {
     }
     if (!isNaN(parseFloat(d.ph))) actualizarValor("phTop", parseFloat(d.ph), 2);
     if (!isNaN(parseFloat(d.ec))) actualizarValor("ecTop", parseFloat(d.ec), 2);
-    if (!isNaN(parseFloat(d.tds))) actualizarValor("tdsTop", parseFloat(d.tds), 2);
+    if (!isNaN(parseFloat(d.tds))) actualizarValor("tdsTop", parseFloat(d.tds), 0);
     // Actualizar display del PPM actual en la sección de nutrientes
     if (!isNaN(parseFloat(d.tds))) {
         const displayElement = document.getElementById("ppmActualDashboard");
