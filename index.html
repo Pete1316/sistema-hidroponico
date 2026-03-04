@@ -1824,8 +1824,8 @@ function generarPDFConDatos() {
     const dias = parseInt(document.getElementById("diasTomate")?.value) || 0;
     const etapa = document.getElementById("etapaActual")?.textContent || "Vegetativa";
     // ===== HEADER ELEGANTE =====
-    // Fondo rojo tomate
-    doc.setFillColor(220, 38, 38);
+    // Fondo verde
+    doc.setFillColor(5, 150, 105);
     doc.rect(0, 0, 210, 50, 'F');
     // Título principal
     doc.setTextColor(255, 255, 255);
@@ -1896,11 +1896,11 @@ function generarPDFConDatos() {
     // Observaciones si existen
     if (datosReporte.observaciones && datosReporte.observaciones.length > 0) {
         yPos += 4;
-        doc.setFillColor(254, 243, 224);
+        doc.setFillColor(224, 242, 254);
         doc.rect(15, yPos - 5, 180, 6, 'F');
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(217, 119, 6);
+        doc.setTextColor(2, 132, 199);
         doc.text(">> OBSERVACIONES TECNICAS", 20, yPos);
         yPos += 8;
         doc.setFontSize(9);
@@ -1924,11 +1924,11 @@ function generarPDFConDatos() {
         rangosIdeales = { ph: [5.8, 6.5], ec: [2.0, 3.0], tds: [800, 1200], waterTemp: [18, 24], dhtTemp: [22, 28], hum: [50, 65] };
         infoEtapa = { nombre: "Floracion/Produccion", desc: "Flores y fructificacion" };
     }
-    doc.setFillColor(255, 237, 213);
+    doc.setFillColor(224, 242, 254);
     doc.rect(15, yPos - 5, 180, 6, 'F');
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(223, 107, 18);
+    doc.setTextColor(2, 132, 199);
     doc.text(">> RANGOS IDEALES - ETAPA: " + infoEtapa.nombre, 20, yPos);
     yPos += 6;
     doc.setFontSize(9);
@@ -1967,7 +1967,7 @@ function generarPDFConDatos() {
             else if (num < min)
                 return { estado: "[v] BAJO", color: [219, 234, 254], textColor: [7, 29, 73] };
             else
-                return { estado: "[^] ALTO", color: [254, 226, 226], textColor: [127, 29, 29] };
+                return { estado: "[^] ALTO", color: [219, 234, 254], textColor: [7, 29, 73] };
         }
         return { estado: "SIN DATOS", color: [229, 231, 235], textColor: [107, 114, 128] };
     }
@@ -1985,7 +1985,7 @@ function generarPDFConDatos() {
         }),
         theme: 'striped',
         headStyles: {
-            fillColor: [220, 38, 38],
+            fillColor: [5, 150, 105],
             textColor: [255, 255, 255],
             fontSize: 10,
             fontStyle: 'bold'
@@ -2008,11 +2008,11 @@ function generarPDFConDatos() {
         return estado.includes("BAJO") || estado.includes("ALTO") || estado.includes("RELLENAR");
     });
     if (tieneAlertas) {
-        doc.setFillColor(254, 243, 224);
+        doc.setFillColor(224, 242, 254);
         doc.rect(15, yPos - 5, 180, 6, 'F');
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(217, 119, 6);
+        doc.setTextColor(2, 132, 199);
         doc.text(">> ACCIONES RECOMENDADAS", 20, yPos);
         yPos += 8;
         doc.setFontSize(9);
@@ -2040,7 +2040,7 @@ function generarPDFConDatos() {
     doc.addPage();
     
     // ===== HEADER CONSISTENTE =====
-    doc.setFillColor(220, 38, 38);
+    doc.setFillColor(5, 150, 105);
     doc.rect(0, 0, 210, 50, 'F');
     
     doc.setTextColor(255, 255, 255);
@@ -2102,8 +2102,8 @@ function generarPDFConDatos() {
             body: macroTableData,
             theme: 'striped',
             headStyles: {
-                fillColor: [246, 191, 38],
-                textColor: [0, 0, 0],
+                fillColor: [2, 132, 199],
+                textColor: [255, 255, 255],
                 fontSize: 9,
                 fontStyle: 'bold'
             },
@@ -2120,7 +2120,7 @@ function generarPDFConDatos() {
         
         // Tabla de microelementos
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(102, 51, 153);
+        doc.setTextColor(5, 150, 105);
         doc.text("Microelementos:", 20, yPos);
         yPos += 4;
         
@@ -2139,7 +2139,7 @@ function generarPDFConDatos() {
             body: microTableData,
             theme: 'striped',
             headStyles: {
-                fillColor: [147, 51, 234],
+                fillColor: [2, 132, 199],
                 textColor: [255, 255, 255],
                 fontSize: 9,
                 fontStyle: 'bold'
@@ -2163,7 +2163,7 @@ function generarPDFConDatos() {
         let yPosAuto = 10;
         
         // ===== HEADER CONSISTENTE =====
-        doc.setFillColor(220, 38, 38);
+        doc.setFillColor(5, 150, 105);
         doc.rect(0, 0, 210, 50, 'F');
         
         doc.setTextColor(255, 255, 255);
@@ -2338,11 +2338,11 @@ function generarPDFConDatos() {
                 yPosAuto = 20;
             }
             
-            doc.setFillColor(255, 237, 213);
+            doc.setFillColor(224, 242, 254);
             doc.rect(15, yPosAuto - 5, 180, 6, 'F');
             doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(217, 119, 6);
+            doc.setTextColor(2, 132, 199);
             doc.text(">> MACROELEMENTOS A AGREGAR", 20, yPosAuto);
             yPosAuto += 8;
             
@@ -2463,11 +2463,11 @@ function generarPDFConDatos() {
                 yPosAuto = 20;
             }
             
-            doc.setFillColor(254, 226, 226);
+            doc.setFillColor(219, 234, 254);
             doc.rect(15, yPosAuto - 5, 180, 6, 'F');
             doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(127, 29, 29);
+            doc.setTextColor(7, 29, 73);
             doc.text(">> CAMBIO DE AGUA REQUERIDO", 20, yPosAuto);
             yPosAuto += 8;
             
