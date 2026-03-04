@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Hidropónica" />
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23059669' width='180' height='180' rx='40'/><text x='90' y='90' font-size='100' fill='white' text-anchor='middle' dominant-baseline='middle' font-weight='bold'>H</text></svg>" />
-<link rel="manifest" href="manifest.json" />
+<link rel="manifest" href="/prototipo-hidrop-nico/manifest.json" />
 <!-- PWA Preload -->
 <link rel="preload" href="src/estilo.css" as="style" />
 <title>Monitoreo Hidropónico - Sensores en Tiempo Real</title>
@@ -337,7 +337,7 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <!-- EC -->
 <div class="col">
 <div class="sensor-item">
-<div class="icon-label"><i class="fas fa-bolt fa-2x"></i> EC (sensor)</div>
+<div class="icon-label"><i class="fas fa-bolt fa-2x"></i> EC</div>
 <div class="value-wrapper"><span id="ecTop">--</span><span class="unit">mS/cm</span></div>
 <div class="explicacion-docente">
 <strong>¿Qué mide?</strong> Conductividad Eléctrica.<br>
@@ -463,8 +463,8 @@ aria-controls="diagnostico-pane" aria-selected="false">
 <!-- PPM con Switch -->
 <div class="col-auto">
 <label for="ppmInput" class="form-label fw-bold"><i class="fas fa-droplet me-1"></i>PPM</label>
-<div class="input-group" style="max-width: 200px;">
-<input type="number" class="form-control" id="ppmInput" min="0" max="1200" value="600" step="1" oninput="validarPPM(this)" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 120px;">
+<div class="input-group" style="max-width: 240px;">
+<input type="number" class="form-control" id="ppmInput" min="0" max="800" value="600" step="1" oninput="validarPPM(this)" onchange="calcularNutrientes()" placeholder="ppm" style="flex: 0 0 120px;">
 <button class="btn btn-outline-secondary" type="button" id="ppmAutoBtn" onclick="togglePpmAuto();" title="Modo automático" style="border-color: #dee2e6; white-space: nowrap;">
 <i class="fas fa-robot"></i> Auto
 </button>
