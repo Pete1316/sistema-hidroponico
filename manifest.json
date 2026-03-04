@@ -2,8 +2,8 @@
   "name": "Hidro",
   "short_name": "Hidro",
   "description": "Aplicación PWA para monitoreo en tiempo real de cultivos hidropónicos de tomate con análisis automático de nutrientes y pH",
-  "start_url": "/prototipo-hidrop-nico/",
-  "scope": "/prototipo-hidrop-nico/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "theme_color": "#059669",
@@ -27,7 +27,7 @@
       "name": "Dashboard",
       "short_name": "Dashboard",
       "description": "Ver datos en tiempo real",
-      "url": "/prototipo-hidrop-nico/?tab=dashboard",
+      "url": "./?tab=dashboard",
       "icons": [
         {
           "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%2310b981' width='96' height='96' rx='20'/><text x='48' y='48' font-size='50' fill='white' text-anchor='middle' dominant-baseline='middle' font-weight='bold'>📊</text></svg>",
@@ -40,7 +40,7 @@
       "name": "Diagnóstico",
       "short_name": "Diagnóstico",
       "description": "Análisis automático de nutrientes",
-      "url": "/prototipo-hidrop-nico/?tab=diagnostico",
+      "url": "./?tab=diagnostico",
       "icons": [
         {
           "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%23f59e0b' width='96' height='96' rx='20'/><text x='48' y='48' font-size='50' fill='white' text-anchor='middle' dominant-baseline='middle' font-weight='bold'>🧪</text></svg>",
