@@ -29,6 +29,59 @@
     /* Soporte para notches en dispositivos */
     .navbar { padding-top: max(10px, env(safe-area-inset-top)); }
     .container { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+    
+    /* Botón Flotante PWA - Instalador */
+    .btn-instalar-pwa {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+        transition: all 0.3s ease;
+        display: none;
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .btn-instalar-pwa:hover {
+        transform: scale(1.15);
+        box-shadow: 0 12px 35px rgba(5, 150, 105, 0.7);
+    }
+    
+    .btn-instalar-pwa:active {
+        transform: scale(0.95);
+    }
+    
+    .btn-instalar-pwa i {
+        font-size: 30px;
+    }
+    
+    .label-instalar {
+        font-size: 10px;
+        margin-top: 2px;
+        text-align: center;
+    }
+    
+    @media (max-width: 576px) {
+        .btn-instalar-pwa {
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+        }
+        .btn-instalar-pwa i {
+            font-size: 24px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -3008,7 +3061,7 @@ function automatizarAjustePPM() {
         recomendacion.detalles.push(`<strong>PPM Actual:</strong> ${ppmActual} ppm ✓`);
         recomendacion.detalles.push(`<strong>Rango Ideal:</strong> ${ppmMin}-${ppmMax} ppm`);
         recomendacion.detalles.push(`<strong>Estado:</strong> En perfecto equilibrio`);
-        recomendacion.detalles.push(`<br>✅ El sistema está funcionando correctamente. `);
+        recomendacion.detalles.push(`<br>✅ El Prototipo está funcionando correctamente. `);
         recomendacion.detalles.push(`Continúe monitoreando cada 2-4 horas.`);
     }
     
@@ -3330,7 +3383,7 @@ window.addEventListener('appinstalled', () => {
 </script>
 
 <!-- Botón Flotante para Instalar PWA -->
-<button id="btnInstalarPWA" class="btn-instalar-pwa" title="Instalar aplicación en tu dispositivo">
+<button id="btnInstalarPWA" class="btn-instalar-pwa" style="display: none;" title="Instalar aplicación en tu dispositivo">
     <i class="fas fa-cloud-download-alt"></i>
     <span class="label-instalar">Instalar</span>
 </button>
