@@ -120,74 +120,7 @@
         }
     }
     
-    /* ===== NOTIFICACIONES ARRIBA-DERECHA ===== */
-    .notificacion {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 16px 24px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-        z-index: 9999;
-        max-width: 350px;
-        text-align: left;
-        animation: slideInRight 0.35s ease-out;
-        font-size: 15px;
-        font-weight: 500;
-        word-wrap: break-word;
-        white-space: normal;
-    }
-    
-    .notificacion.exito {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        color: white;
-        border-left: 5px solid #047857;
-    }
-    
-    .notificacion.advertencia {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-        color: white;
-        border-left: 5px solid #b45309;
-    }
-    
-    .notificacion.error {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        color: white;
-        border-left: 5px solid #991b1b;
-    }
-    
-    .notificacion.info {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        color: white;
-        border-left: 5px solid #1e40af;
-    }
-    
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(30px);
-        }
-    }
-    
-    .notificacion.cerrar {
-        animation: slideOutRight 0.35s ease-out forwards;
-    }
+    /* ===== NOTIFICACIONES ELIMINADAS ===== */
     
     /* ===== OCULTAR SPINNER DE NUMBER INPUT ===== */
     input[type="number"]::-webkit-outer-spin-button,
@@ -1217,31 +1150,7 @@ oninput="this.value = this.value.slice(0,500);"></textarea>
 </div>
 </div>
 
-<!-- ===== MODAL DE ALERTA CENTRALIZADO ===== -->
-<div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content border-warning">
-<div class="modal-header bg-warning text-dark">
-<h5 class="modal-title fw-bold" id="modalAlertaLabel">
-<i class="fas fa-exclamation-triangle me-2"></i>Alerta de PPM
-</h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-</div>
-<div class="modal-body">
-<p id="modalAlertaTexto" class="mb-0" style="font-size: 1.1rem; color: #333;"></p>
-<div class="alert alert-warning mt-3 mb-0" role="alert" style="font-size: 0.9rem;">
-<i class="fas fa-lightbulb me-2"></i>
-<strong>Recomendación:</strong> Ajuste el valor de PPM dentro del rango recomendado para obtener mejores resultados en el cálculo de nutrientes.
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">
-<i class="fas fa-check me-1"></i>Entendido
-</button>
-</div>
-</div>
-</div>
-</div>
+<!-- ===== MODAL DE ALERTA ELIMINADO ===== -->
 
 <!-- Scripts -->
 <script>
@@ -2859,29 +2768,8 @@ function crearTabla(id, columnas, filas){
 
 // ===== FUNCIÓN PARA MOSTRAR NOTIFICACIONES CENTRADAS =====
 function mostrarNotificacion(mensaje, tipo = 'info', duracion = 3000) {
-    // Crear elemento de notificación
-    const notif = document.createElement('div');
-    notif.className = `notificacion ${tipo}`;
-    notif.textContent = mensaje;
-    
-    // Agregar al body
-    document.body.appendChild(notif);
-    
-    // Auto-cerrar después de la duración especificada
-    setTimeout(() => {
-        notif.classList.add('cerrar');
-        setTimeout(() => {
-            notif.remove();
-        }, 300);
-    }, duracion);
-    
-    // Permitir cerrar con clic
-    notif.addEventListener('click', () => {
-        notif.classList.add('cerrar');
-        setTimeout(() => {
-            notif.remove();
-        }, 300);
-    });
+    // Función deshabilitada: notificaciones eliminadas
+    console.log(`[Notificación deshabilitada] ${tipo}: ${mensaje}`);
 }
 
 function getSensorName(id) {
@@ -3699,18 +3587,10 @@ window.addEventListener('online', () => {
     }, 5000);
 });
 
-// Detectar cuando se pierde conexión
+// Detectar cuando se pierde conexión (notificación deshabilitada)
 window.addEventListener('offline', () => {
     console.warn('⚠️ Sin conexión a internet');
-    const notification = document.createElement('div');
-    notification.className = 'alert alert-warning alert-dismissible fade show position-fixed bottom-0 start-0 m-3';
-    notification.style.zIndex = '9999';
-    notification.innerHTML = `
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        <strong>Sin Conexión a Internet</strong> - Usando datos en caché
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-    document.body.appendChild(notification);
+    // Notificación eliminada
 });
 
 // Ofrecer instalar aplicación (solo en navegadores compatibles)
